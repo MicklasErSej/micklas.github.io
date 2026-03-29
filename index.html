@@ -77,13 +77,17 @@
 </div>
 
 <!-- Random Number Generator Game -->
-<div id="rng" class="game-screen">
+<div id="numberWrapper" style="margin-bottom: 30px;">
     <h2>Random Number Generator 🎲</h2>
-    <button onclick="backToMenu()">Back to Menu</button>
     <div id="number">0</div>
     <button onclick="generateNumber()">Generate Number</button>
 
-<div class="sliders">
+<div id="rngControls" style="display: flex; justify-content: center; align-items: flex-start; gap: 50px;">
+    <div id="generateButtonWrapper" style="margin-top: 20px;">
+        <button onclick="generateNumber()">Generate Number</button>
+    </div>
+
+    <div class="sliders" style="margin-top: 0;">
         <p>1–100: <span id="p1Text">50</span>%</p>
         <input type="range" id="p1" min="0" max="100" value="50">
 
@@ -93,7 +97,10 @@
         <p>700–1000: <span id="p3Text">10</span>%</p>
         <input type="range" id="p3" min="0" max="100" value="10">
     </div>
+</div>
 
+<!-- Back button separate -->
+<div id="backButtonWrapper" style="margin-top: 30px;">
     <button onclick="backToMenu()">Back to Menu</button>
 </div>
 
