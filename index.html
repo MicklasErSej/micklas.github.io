@@ -294,9 +294,12 @@ let total = 0;
 
 // Start new round
 function startGame2() {
-let settings = levelSettings[level];
-let random = Math.random();
+    let settings = levelSettings[level];
+    let random = Math.random();
 
+    console.log("Level:", level);
+    console.log("Settings:", settings);
+    
 if (random < settings.p1) {
     // Small numbers 1–100
     target = Math.floor(Math.random() * 100) + 1;
