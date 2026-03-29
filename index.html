@@ -270,9 +270,9 @@ function startGame2() {
     target = Math.floor(Math.random() * 500) + 1;
     total = 0;
 
-    document.getElementById("targetNumber").innerText = target;
-    document.getElementById("currentTotal").innerText = "Total: 0";
-    document.getElementById("resultText").innerText = "";
+    document.getElementById("targetNumber").innerText = formatDKK(target);
+    document.getElementById("currentTotal").innerText = "Total: " + formatDKK(total);
+    document.getElementById("currentTotal").innerText = "Total: " + formatDKK(0);
 }
 
 // Add money
@@ -289,12 +289,16 @@ function resetTotal() {
 
 // Check answer
 function checkAnswer() {
-    if (total === target) {
+    if (Math.abs(total - target) < 0.01) {
         document.getElementById("resultText").innerText = "✅ Correct!";
         setTimeout(startGame2, 1000); // new round after 1 sec
     } else {
         document.getElementById("resultText").innerText = "❌ Try again!";
     }
+}
+
+function formatDKK(value) {
+    return value.toFixed(2).replace(".", ",") + " kr";
 }
 
 // Start game when entering
