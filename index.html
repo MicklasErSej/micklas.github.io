@@ -296,20 +296,7 @@ let total = 0;
 function startGame2() {
     let settings = levelSettings[level];
     let random = Math.random();
-
-    if (random < settings.p1) {
-    console.log("SMALL (p1)");
-    target = Math.floor(Math.random() * 100) + 1;
-
-} else if (random < settings.p1 + settings.p2) {
-    console.log("MEDIUM (p2)");
-    target = Math.floor(Math.random() * 200) + 101;
-
-} else {
-    console.log("LARGE (p3)");
-    target = Math.floor(Math.random() * 200) + 301;
-}
-    
+ 
 if (random < settings.p1) {
     // Small numbers 1–100
     target = Math.floor(Math.random() * 100) + 1;
