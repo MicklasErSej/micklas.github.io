@@ -131,9 +131,41 @@
 </div>
 
 <!-- Future Game 2 -->
-<div id="game2" class="game-screen">
-    <h2>Game 2 (Coming Soon)</h2>
-    <button onclick="backToMenu()">Back to Menu</button>
+<div id="game2" class="game-screen" style="position: relative;">
+    <h2>Cash Register Trainer 💰</h2>
+
+    <div id="targetNumber" style="font-size:40px; margin:20px;">
+        0
+    </div>
+
+    <div id="currentTotal" style="font-size:30px; margin:20px;">
+        Total: 0
+    </div>
+
+    <!-- Buttons -->
+    <div>
+        <button onclick="addValue(0.5)">0.5</button>
+        <button onclick="addValue(1)">1</button>
+        <button onclick="addValue(2)">2</button>
+        <button onclick="addValue(5)">5</button>
+        <button onclick="addValue(10)">10</button>
+        <button onclick="addValue(20)">20</button>
+        <button onclick="addValue(50)">50</button>
+        <button onclick="addValue(100)">100</button>
+        <button onclick="addValue(200)">200</button>
+        <button onclick="addValue(500)">500</button>
+    </div>
+
+    <br>
+
+    <button onclick="checkAnswer()">Check</button>
+    <button onclick="resetTotal()">Reset</button>
+
+    <p id="resultText"></p>
+
+    <button onclick="backToMenu()" style="position:absolute; top:20px; right:20px;">
+        Back to Menu
+    </button>
 </div>
 
 <script>
@@ -226,6 +258,48 @@ function generateNumber() {
 
     document.getElementById("number").innerText = number;
 }
+
+
+//Game "
+
+let target = 0;
+let total = 0;
+
+// Start new round
+function startGame2() {
+    target = Math.floor(Math.random() * 500) + 1;
+    total = 0;
+
+    document.getElementById("targetNumber").innerText = target;
+    document.getElementById("currentTotal").innerText = "Total: 0";
+    document.getElementById("resultText").innerText = "";
+}
+
+// Add money
+function addValue(value) {
+    total += value;
+    document.getElementById("currentTotal").innerText = "Total: " + total;
+}
+
+// Reset
+function resetTotal() {
+    total = 0;
+    document.getElementById("currentTotal").innerText = "Total: 0";
+}
+
+// Check answer
+function checkAnswer() {
+    if (total === target) {
+        document.getElementById("resultText").innerText = "✅ Correct!";
+        setTimeout(startGame2, 1000); // new round after 1 sec
+    } else {
+        document.getElementById("resultText").innerText = "❌ Try again!";
+    }
+}
+
+// Start game when entering
+document.querySelector("button[onclick=\"showGame('game2')\"]")
+.addEventListener("click", startGame2);
 
 // Initialize display
 updateDisplay();
