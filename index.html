@@ -287,6 +287,27 @@ function generateNumber() {
 
 //Game 2
 
+// History Array
+let history = [];
+
+// Toggle History Panel
+function toggleHistory() {
+    const panel = document.getElementById("historyPanel");
+    panel.style.display = panel.style.display === "none" ? "block" : "none";
+}
+
+// Update history
+function updateHistory(target, entered) {
+    history.push({ target: target, entered: entered });
+    const list = document.getElementById("historyList");
+    list.innerHTML = ""; // Clear current list
+    history.slice().reverse().forEach(item => {
+        const li = document.createElement("li");
+        li.innerText = `Target: ${formatDKK(item.target)}, Entered: ${formatDKK(item.entered)}`;
+        list.appendChild(li);
+    });
+}
+
 let level = "easy";
 
 let levelSettings = {
