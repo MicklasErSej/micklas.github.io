@@ -8,7 +8,15 @@
 
 <h1>Random Number Generator 🎲</h1>
 
-<!-- Sliders -->
+<!-- Button -->
+<button onclick="generateNumber()" style="padding:15px; font-size:18px;">
+    Generate Number
+</button>
+
+<!-- Number display -->
+<div id="number" style="font-size:40px; margin-top:30px;"></div>
+
+<!-- Sliders (moved below the number) -->
 <div style="margin-top:40px;">
     <p>1–100: <span id="p1Text">50</span>%</p>
     <input type="range" id="p1" min="0" max="100" value="50">
@@ -19,14 +27,6 @@
     <p>700–1000: <span id="p3Text">10</span>%</p>
     <input type="range" id="p3" min="0" max="100" value="10">
 </div>
-
-<br>
-
-<button onclick="generateNumber()" style="padding:15px; font-size:18px;">
-    Generate Number
-</button>
-
-<div id="number" style="font-size:40px; margin-top:30px;"></div>
 
 <script>
 const p1Slider = document.getElementById("p1");
