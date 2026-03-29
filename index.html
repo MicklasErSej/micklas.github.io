@@ -368,9 +368,16 @@ function updateHistory(target, entered) {
     history.push({ target: target, entered: entered });
     const list = document.getElementById("historyList");
     list.innerHTML = ""; // Clear current list
+
+    // Show newest first
     history.slice().reverse().forEach(item => {
         const li = document.createElement("li");
-        li.innerText = `Target: ${formatDKK(item.target)}, Entered: ${formatDKK(item.entered)}`;
+
+        // Check if correct
+        const correct = Math.abs(item.entered - item.target) < 0.01;
+        const icon = correct ? "✅" : "❌";
+
+        li.innerText = `${icon} Target: ${formatDKK(item.target)}, Entered: ${formatDKK(item.entered)}`;
         list.appendChild(li);
     });
 }
