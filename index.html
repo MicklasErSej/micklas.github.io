@@ -161,6 +161,21 @@
         <button onclick="addValue(500)">500 kr</button>
     </div>
 
+     <!-- History Buttom -->
+    
+    <button id="historyButton" onclick="toggleHistory()" 
+        style="position:absolute; top:20px; right:120px;">History</button>
+
+    <!-- History Panel -->
+    <div id="historyPanel" 
+         style="display:none; position:absolute; top:60px; right:20px; 
+            width:250px; max-height:400px; overflow-y:auto; 
+            background:#fff; border:2px solid #4CAF50; border-radius:10px; 
+            padding:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+        <h3>History</h3>
+        <ul id="historyList" style="list-style:none; padding-left:5px; margin:0;"></ul>
+    </div>
+
     <!-- Actions -->
     <div style="margin:20px;">
         <button onclick="checkAnswer()" style="padding:15px 30px; font-size:24px; background-color:#FFA500;">Check</button>
@@ -172,19 +187,6 @@
 
     <!-- Back Button -->
     <button onclick="backToMenu()" style="position:absolute; top:-12px; right:0px; padding:10px 17px;">Back to Menu</button>
-    </div>
-
-    <button id="historyButton" onclick="toggleHistory()" 
-        style="position:absolute; top:20px; left:120px;">History</button>
-
-    <!-- History Panel -->
-    <div id="historyPanel" 
-     style="display:none; position:absolute; top:60px; right:20px; 
-            width:250px; max-height:400px; overflow-y:auto; 
-            background:#fff; border:2px solid #4CAF50; border-radius:10px; 
-            padding:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-    <h3>History</h3>
-    <ul id="historyList" style="list-style:none; padding-left:5px; margin:0;"></ul>
 </div>
 
 <script>
