@@ -66,38 +66,37 @@
 </head>
 <body>
 
+<h1>Game Hub 🎮</h1>
+
+<!-- Main Menu -->
 <div id="mainMenu">
-    <h1>Game Hub 🎮</h1>
     <button onclick="showGame('rng')">Random Number Generator</button>
-    <button onclick="showGame('game2')">Game 2</button>
+    <button onclick="showGame('game2')">Game 2 (Coming Soon)</button>
 </div>
 
-<!-- Game screens (hidden by default) -->
-<div id="rng" style="display:none;">
-    <!-- Random Number Generator content here -->
+<!-- Random Number Generator Game -->
+<div id="rng" class="game-screen">
+    <h2>Random Number Generator 🎲</h2>
+    <div id="number">0</div>
+    <button onclick="generateNumber()">Generate Number</button>
+
+    <div class="sliders">
+        <p>1–100: <span id="p1Text">50</span>%</p>
+        <input type="range" id="p1" min="0" max="100" value="50">
+
+        <p>101–699: <span id="p2Text">40</span>%</p>
+        <input type="range" id="p2" min="0" max="100" value="40">
+
+        <p>700–1000: <span id="p3Text">10</span>%</p>
+        <input type="range" id="p3" min="0" max="100" value="10">
+    </div>
+
     <button onclick="backToMenu()">Back to Menu</button>
-    <h1>Random Number Generator 🎲</h1>
-
-<!-- Number Display -->
-<div id="number">0</div>
-
-<!-- Button -->
-<button onclick="generateNumber()">Generate Number</button>
-
-<!-- Sliders -->
-<div class="sliders">
-    <p>1–100: <span id="p1Text">50</span>%</p>
-    <input type="range" id="p1" min="0" max="100" value="50">
-
-    <p>100–700: <span id="p2Text">40</span>%</p>
-    <input type="range" id="p2" min="0" max="100" value="40">
-
-    <p>700–1000: <span id="p3Text">10</span>%</p>
-    <input type="range" id="p3" min="0" max="100" value="10">
 </div>
 
-<div id="game2" style="display:none;">
-    <!-- Future Game 2 content -->
+<!-- Future Game 2 -->
+<div id="game2" class="game-screen">
+    <h2>Game 2 (Coming Soon)</h2>
     <button onclick="backToMenu()">Back to Menu</button>
 </div>
 
@@ -113,7 +112,7 @@ function backToMenu(){
     document.getElementById('game2').style.display = 'none';
 }
 
-// Random Number Generator     
+// Random Number Generator    JS 
 const p1Slider = document.getElementById("p1");
 const p2Slider = document.getElementById("p2");
 const p3Slider = document.getElementById("p3");
