@@ -294,30 +294,18 @@ let total = 0;
 
 // Start new round
 function startGame2() {
-let settings = levelSettings[level];
-
-// Make total always exactly 1
-let totalP = settings.p1 + settings.p2 + settings.p3;
-
-let r = Math.random() * totalP;
-
-if (r < settings.p1) {
-    console.log("SMALL");
-    target = Math.floor(Math.random() * 100) + 1;
-
-} else if (r < settings.p1 + settings.p2) {
-    console.log("MEDIUM");
-    target = Math.floor(Math.random() * 200) + 101;
-
-} else {
-    console.log("LARGE");
-    target = Math.floor(Math.random() * 200) + 301;
-}
     total = 0;
+
+    if (level === "easy") {
+        target = Math.floor(Math.random() * 100) + 1;
+    } else if (level === "medium") {
+        target = Math.floor(Math.random() * 200) + 101;
+    } else if (level === "hard") {
+        target = Math.floor(Math.random() * 200) + 301;
+    }
 
     document.getElementById("targetNumber").innerText = formatDKK(target);
     document.getElementById("currentTotal").innerText = "Total: " + formatDKK(total);
-    document.getElementById("currentTotal").innerText = "Total: " + formatDKK(0);
 }
 
 // Add money
