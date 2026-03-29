@@ -278,6 +278,12 @@ function generateNumber() {
 
 let level = "easy";
 
+let levelSettings = {
+    easy:   { p1: 0.7, p2: 0.25, p3: 0.05 },
+    medium: { p1: 0.4, p2: 0.4,  p3: 0.2 },
+    hard:   { p1: 0.2, p2: 0.5,  p3: 0.3 }
+};
+
 function setLevel() {
     level = document.getElementById("levelSelect").value;
     startGame2(); // restart with new difficulty
