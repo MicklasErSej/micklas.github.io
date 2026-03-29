@@ -1,16 +1,14 @@
 <script>
-    function generateNumber() {
-        let random = Math.random();
-        let number;
+function generateNumber() {
+    let random = Math.random();
+    let number;
 
-        if (random < 0.7) {
-            // 70% chance → number between 1–400
-            number = Math.floor(Math.random() * 400) + 1;
-        } else {
-            // 30% chance → number between 401–1000
-            number = Math.floor(Math.random() * 600) + 401;
-        }
-
-        document.getElementById("number").textContent = number;
+    if (random < 0.7) {
+        number = Math.floor(Math.random() * 400) + 1;
+    } else {
+        number = Math.floor(Math.random() * 600) + 401;
     }
+
+    document.getElementById("number").innerText = number;
+}
 </script>
