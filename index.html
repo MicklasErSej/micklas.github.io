@@ -1,42 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lær talene :D</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 100px;
+<script>
+    function generateNumber() {
+        let random = Math.random();
+        let number;
+
+        if (random < 0.7) {
+            // 70% chance → number between 1–400
+            number = Math.floor(Math.random() * 400) + 1;
+        } else {
+            // 30% chance → number between 401–1000
+            number = Math.floor(Math.random() * 600) + 401;
         }
 
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        #number {
-            margin-top: 30px;
-            font-size: 40px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Random Number Generator</h1>
-
-    <button onclick="generateNumber()">Generate Number</button>
-
-    <div id="number"></div>
-
-    <script>
-        function generateNumber() {
-            let randomNumber = Math.floor(Math.random() * 1000) + 1;
-            document.getElementById("number").textContent = randomNumber;
-        }
-    </script>
-
-</body>
-</html>
+        document.getElementById("number").textContent = number;
+    }
+</script>
