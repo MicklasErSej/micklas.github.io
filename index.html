@@ -180,15 +180,20 @@
 <script>
 function showGame(gameId){
     const menu = document.getElementById('menuWrapper');
-    // Fade out menu
+
     menu.style.opacity = 0;
 
-    // After fade finishes, hide menu completely and show game
     setTimeout(() => {
         menu.style.display = 'none';
         document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
         document.getElementById(gameId).style.display = 'block';
-    }, 500); // 500ms matches CSS transition
+
+        // 👇 ADD THIS PART
+        if (gameId === "game2") {
+            startGame2();
+        }
+
+    }, 500);
 }
 
 function backToMenu(){
