@@ -9,14 +9,14 @@
 <h1>Random Number Generator 🎲</h1>
 
 <!-- Number display -->
-<div id="number" style="font-size:60px; margin-bottom:20px;"></div>
+<div id="number" style="font-size:40px; margin-bottom:30px;"></div>
 
 <!-- Button -->
 <button onclick="generateNumber()" style="padding:15px; font-size:18px;">
     Generate Number
 </button>
 
-<!-- Sliders (moved below the number) -->
+<!-- Sliders -->
 <div style="margin-top:40px;">
     <p>1–100: <span id="p1Text">50</span>%</p>
     <input type="range" id="p1" min="0" max="100" value="50">
@@ -37,44 +37,64 @@ const p1Text = document.getElementById("p1Text");
 const p2Text = document.getElementById("p2Text");
 const p3Text = document.getElementById("p3Text");
 
-// Update text when sliders move
+// Update the slider display
 function updateDisplay() {
     p1Text.innerText = p1Slider.value;
     p2Text.innerText = p2Slider.value;
     p3Text.innerText = p3Slider.value;
 }
 
-p1Slider.oninput = updateDisplay;
-p2Slider.oninput = updateDisplay;
-p3Slider.oninput = updateDisplay;
+// Make sliders always add to 100%
+function normalizeSliders(changed) {
+    let total = parseInt(p1Slider.value) + parseInt(p2Slider.value) + parseInt(p3Slider.value);
 
+    if (total > 100) {
+        let excess = total - 100;
+
+        // Reduce other sliders proportionally (not the one that changed)
+        if (changed === p1Slider) {
+            let ratio = (parseInt(p2Slider.value) + parseInt(p3Slider.value)) / (total - parseInt(p1Slider.value));
+            p2Slider.value = Math.max(0, parseInt(p2Slider.value) - Math.round(excess * (parseInt(p2Slider.value)/(parseInt(p2Slider.value)+parseInt(p3Slider.value)))));
+            p3Slider.value = Math.max(0, parseInt(p3Slider.value) - Math.round(excess * (parseInt(p3Slider.value)/(parseInt(p2Slider.value)+parseInt(p3Slider.value)))));
+        } else if (changed === p2Slider) {
+            p1Slider.value = Math.max(0, parseInt(p1Slider.value) - Math.round(excess * (parseInt(p1Slider.value)/(parseInt(p1Slider.value)+parseInt(p3Slider.value)))));
+            p3Slider.value = Math.max(0, parseInt(p3Slider.value) - Math.round(excess * (parseInt(p3Slider.value)/(parseInt(p1Slider.value)+parseInt(p3Slider.value)))));
+        } else if (changed === p3Slider) {
+            p1Slider.value = Math.max(0, parseInt(p1Slider.value) - Math.round(excess * (parseInt(p1Slider.value)/(parseInt(p1Slider.value)+parseInt(p2Slider.value)))));
+            p2Slider.value = Math.max(0, parseInt(p2Slider.value) - Math.round(excess * (parseInt(p2Slider.value)/(parseInt(p1Slider.value)+parseInt(p2Slider.value)))));
+        }
+    }
+
+    updateDisplay();
+}
+
+// Connect sliders to normalization
+[p1Slider, p2Slider, p3Slider].forEach(slider => {
+    slider.oninput = () => normalizeSliders(slider);
+});
+
+// Generate random number
 function generateNumber() {
     let p1 = p1Slider.value / 100;
     let p2 = p2Slider.value / 100;
     let p3 = p3Slider.value / 100;
 
-    let total = p1 + p2 + p3;
-
-    // Normalize (so it always works even if not exactly 100%)
-    p1 = p1 / total;
-    p2 = p2 / total;
-    p3 = p3 / total;
-
     let random = Math.random();
     let number;
 
     if (random < p1) {
-        number = Math.floor(Math.random() * 250) + 1;
-
+        number = Math.floor(Math.random() * 100) + 1;
     } else if (random < p1 + p2) {
-        number = Math.floor(Math.random() * 350) + 251;
-
+        number = Math.floor(Math.random() * 599) + 101;
     } else {
-        number = Math.floor(Math.random() * 400) + 601;
+        number = Math.floor(Math.random() * 301) + 700;
     }
 
     document.getElementById("number").innerText = number;
 }
+
+// Initial display
+updateDisplay();
 </script>
 
 </body>
