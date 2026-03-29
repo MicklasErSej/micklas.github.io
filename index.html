@@ -15,19 +15,23 @@
     <div id="number" style="font-size:40px; margin-top:30px;"></div>
 
     <script>
-        function generateNumber() {
-            let random = Math.random();
-            let number;
+function generateNumber() {
+    let random = Math.random();
+    let number;
 
-            if (random < 0.7) {
-                number = Math.floor(Math.random() * 400) + 1;
-            } else {
-                number = Math.floor(Math.random() * 600) + 401;
-            }
+    if (random < 0.5) {
+        // 50% → 1–100
+        number = Math.floor(Math.random() * 100) + 1;
 
-            document.getElementById("number").innerText = number;
-        }
-    </script>
+    } else if (random < 0.9) {
+        // 40% → 101–699
+        number = Math.floor(Math.random() * 599) + 101;
 
-</body>
-</html>
+    } else {
+        // 10% → 700–1000
+        number = Math.floor(Math.random() * 301) + 700;
+    }
+
+    document.getElementById("number").innerText = number;
+}
+</script>
