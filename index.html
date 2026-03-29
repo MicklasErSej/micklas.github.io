@@ -1,3 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Game Hub</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f4f4f4;
+        margin: 50px;
+    }
+
+    h1 {
+        margin-bottom: 40px;
+    }
+
+    .game-screen {
+        display: none;
+    }
+
+    #number {
+        font-size: 60px;
+        font-weight: bold;
+        background-color: #fff;
+        padding: 40px 0;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+        padding: 20px 40px;
+        font-size: 22px;
+        border: none;
+        border-radius: 10px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 30px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .sliders {
+        background-color: #fff;
+        display: inline-block;
+        padding: 20px 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        text-align: left;
+    }
+
+    .sliders p {
+        margin: 15px 0 5px;
+        font-weight: bold;
+    }
+
+    .sliders input[type="range"] {
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+
 <div id="mainMenu">
     <h1>Game Hub 🎮</h1>
     <button onclick="showGame('rng')">Random Number Generator</button>
