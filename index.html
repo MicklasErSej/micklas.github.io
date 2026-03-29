@@ -29,17 +29,6 @@
         margin-bottom: 30px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    button-backmenu {
-        padding: 20px 40px;
-        font-size: 40px;
-        border: none;
-        border-radius: 10px;
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-bottom: 30px;
-    }
 
     button {
         padding: 20px 40px;
@@ -90,7 +79,6 @@
 <!-- Random Number Generator Game -->
 <div id="rng" class="game-screen">
     <h2>Random Number Generator 🎲</h2>
-    <button-backmenu onclick="backToMenu()">Back to Menu</button-backmenu>
     <div id="number">0</div>
     <button onclick="generateNumber()">Generate Number</button>
 
@@ -103,6 +91,9 @@
 
         <p>700–1000: <span id="p3Text">10</span>%</p>
         <input type="range" id="p3" min="0" max="100" value="10">
+    </div>
+
+    <button onclick="backToMenu()">Back to Menu</button>
 </div>
 
 <!-- Future Game 2 -->
