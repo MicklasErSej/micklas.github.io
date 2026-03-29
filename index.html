@@ -4,24 +4,64 @@
     <meta charset="UTF-8">
     <title>Random Number Generator</title>
 </head>
-<body style="text-align:center; margin-top:100px; font-family:Arial;">
+<body style="text-align:center; font-family:Arial; margin-top:50px;">
 
-    <h1>Random Number Generator</h1>
+<h1>Random Number Generator 🎲</h1>
 
-    <button onclick="generateNumber()" style="padding:15px; font-size:18px;">
-        Generate Number
-    </button>
+<!-- Sliders -->
+<div>
+    <p>1–100: <span id="p1Text">50</span>%</p>
+    <input type="range" id="p1" min="0" max="100" value="50">
 
-    <div id="number" style="font-size:40px; margin-top:30px;"></div>
+    <p>101–699: <span id="p2Text">40</span>%</p>
+    <input type="range" id="p2" min="0" max="100" value="40">
 
-    <script>
+    <p>700–1000: <span id="p3Text">10</span>%</p>
+    <input type="range" id="p3" min="0" max="100" value="10">
+</div>
+
+<br>
+
+<button onclick="generateNumber()" style="padding:15px; font-size:18px;">
+    Generate Number
+</button>
+
+<div id="number" style="font-size:40px; margin-top:30px;"></div>
+
+<script>
+const p1Slider = document.getElementById("p1");
+const p2Slider = document.getElementById("p2");
+const p3Slider = document.getElementById("p3");
+
+const p1Text = document.getElementById("p1Text");
+const p2Text = document.getElementById("p2Text");
+const p3Text = document.getElementById("p3Text");
+
+// Update text when sliders move
+function updateDisplay() {
+    p1Text.innerText = p1Slider.value;
+    p2Text.innerText = p2Slider.value;
+    p3Text.innerText = p3Slider.value;
+}
+
+p1Slider.oninput = updateDisplay;
+p2Slider.oninput = updateDisplay;
+p3Slider.oninput = updateDisplay;
+
 function generateNumber() {
+    let p1 = p1Slider.value / 100;
+    let p2 = p2Slider.value / 100;
+    let p3 = p3Slider.value / 100;
+
+    let total = p1 + p2 + p3;
+
+    // Normalize (so it always works even if not exactly 100%)
+    p1 = p1 / total;
+    p2 = p2 / total;
+    p3 = p3 / total;
+
     let random = Math.random();
     let number;
-
-    let p1 = 0.5;  // 50%
-    let p2 = 0.4;  // 40%
-    let p3 = 0.1;  // 10%
 
     if (random < p1) {
         number = Math.floor(Math.random() * 100) + 1;
@@ -36,3 +76,6 @@ function generateNumber() {
     document.getElementById("number").innerText = number;
 }
 </script>
+
+</body>
+</html>
