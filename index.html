@@ -1,23 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Random Number Generator</title>
+<meta charset="UTF-8">
+<title>Random Number Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f4f4f4;
+        margin: 50px;
+    }
+
+    h1 {
+        margin-bottom: 40px;
+    }
+
+    #number {
+        font-size: 60px;
+        font-weight: bold;
+        background-color: #fff;
+        padding: 40px 0;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+        padding: 20px 40px;
+        font-size: 22px;
+        border: none;
+        border-radius: 10px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .sliders {
+        background-color: #fff;
+        display: inline-block;
+        padding: 20px 30px;
+        border-radius: 15px;
+        margin-top: 40px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        text-align: left;
+    }
+
+    .sliders p {
+        margin: 15px 0 5px;
+        font-weight: bold;
+    }
+
+    .sliders input[type="range"] {
+        width: 100%;
+    }
+</style>
 </head>
-<body style="text-align:center; font-family:Arial; margin-top:50px;">
+<body>
 
 <h1>Random Number Generator 🎲</h1>
 
-<!-- Number display -->
-<div id="number" style="font-size:40px; margin-bottom:30px;"></div>
+<!-- Number Display -->
+<div id="number">0</div>
 
 <!-- Button -->
-<button onclick="generateNumber()" style="padding:15px; font-size:18px;">
-    Generate Number
-</button>
+<button onclick="generateNumber()">Generate Number</button>
 
 <!-- Sliders -->
-<div style="margin-top:40px;">
+<div class="sliders">
     <p>1–100: <span id="p1Text">50</span>%</p>
     <input type="range" id="p1" min="0" max="100" value="50">
 
@@ -37,23 +91,21 @@ const p1Text = document.getElementById("p1Text");
 const p2Text = document.getElementById("p2Text");
 const p3Text = document.getElementById("p3Text");
 
-// Update the slider display
+// Update the slider text
 function updateDisplay() {
     p1Text.innerText = p1Slider.value;
     p2Text.innerText = p2Slider.value;
     p3Text.innerText = p3Slider.value;
 }
 
-// Make sliders always add to 100%
+// Normalize sliders so total is always 100%
 function normalizeSliders(changed) {
     let total = parseInt(p1Slider.value) + parseInt(p2Slider.value) + parseInt(p3Slider.value);
 
     if (total > 100) {
         let excess = total - 100;
 
-        // Reduce other sliders proportionally (not the one that changed)
         if (changed === p1Slider) {
-            let ratio = (parseInt(p2Slider.value) + parseInt(p3Slider.value)) / (total - parseInt(p1Slider.value));
             p2Slider.value = Math.max(0, parseInt(p2Slider.value) - Math.round(excess * (parseInt(p2Slider.value)/(parseInt(p2Slider.value)+parseInt(p3Slider.value)))));
             p3Slider.value = Math.max(0, parseInt(p3Slider.value) - Math.round(excess * (parseInt(p3Slider.value)/(parseInt(p2Slider.value)+parseInt(p3Slider.value)))));
         } else if (changed === p2Slider) {
@@ -68,12 +120,12 @@ function normalizeSliders(changed) {
     updateDisplay();
 }
 
-// Connect sliders to normalization
+// Connect sliders
 [p1Slider, p2Slider, p3Slider].forEach(slider => {
     slider.oninput = () => normalizeSliders(slider);
 });
 
-// Generate random number
+// Generate number function
 function generateNumber() {
     let p1 = p1Slider.value / 100;
     let p2 = p2Slider.value / 100;
@@ -93,7 +145,7 @@ function generateNumber() {
     document.getElementById("number").innerText = number;
 }
 
-// Initial display
+// Initialize display
 updateDisplay();
 </script>
 
