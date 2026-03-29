@@ -64,13 +64,13 @@ function generateNumber() {
     let number;
 
     if (random < p1) {
-        number = Math.floor(Math.random() * 100) + 1;
+        number = Math.floor(Math.random() * 250) + 1;
 
     } else if (random < p1 + p2) {
-        number = Math.floor(Math.random() * 599) + 101;
+        number = Math.floor(Math.random() * 350) + 251;
 
     } else {
-        number = Math.floor(Math.random() * 301) + 700;
+        number = Math.floor(Math.random() * 400) + 601;
     }
 
     document.getElementById("number").innerText = number;
