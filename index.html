@@ -102,8 +102,8 @@
 
 <script>
 function showGame(gameId){
-    document.getElementById('hubTitle').style.display = 'block'; // Hide the title
-    document.getElementById('mainMenu').style.display = 'block';
+    document.getElementById('hubTitle').style.display = 'none'; // Hide the title
+    document.getElementById('mainMenu').style.display = 'none';
     document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
     document.getElementById(gameId).style.display = 'block';
 }
