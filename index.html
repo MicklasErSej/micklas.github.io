@@ -1,14 +1,33 @@
-<script>
-function generateNumber() {
-    let random = Math.random();
-    let number;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Number Generator</title>
+</head>
+<body style="text-align:center; margin-top:100px; font-family:Arial;">
 
-    if (random < 0.7) {
-        number = Math.floor(Math.random() * 400) + 1;
-    } else {
-        number = Math.floor(Math.random() * 600) + 401;
-    }
+    <h1>Random Number Generator</h1>
 
-    document.getElementById("number").innerText = number;
-}
-</script>
+    <button onclick="generateNumber()" style="padding:15px; font-size:18px;">
+        Generate Number
+    </button>
+
+    <div id="number" style="font-size:40px; margin-top:30px;"></div>
+
+    <script>
+        function generateNumber() {
+            let random = Math.random();
+            let number;
+
+            if (random < 0.7) {
+                number = Math.floor(Math.random() * 400) + 1;
+            } else {
+                number = Math.floor(Math.random() * 600) + 401;
+            }
+
+            document.getElementById("number").innerText = number;
+        }
+    </script>
+
+</body>
+</html>
