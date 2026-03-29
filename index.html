@@ -142,6 +142,15 @@
         Total: 0
     </div>
 
+ <!-- Level System -->
+    <p><b>Select Level:</b></p>
+
+<select id="levelSelect" onchange="setLevel()">
+    <option value="easy">Easy</option>
+    <option value="medium">Medium</option>
+    <option value="hard">Hard</option>
+</select>
+
     <!-- Buttons -->
     <div>
         <button onclick="addValue(0.5)">0.5</button>
@@ -260,14 +269,41 @@ function generateNumber() {
 }
 
 
-//Game "
+//Game 2
 
+let level = "easy";
+
+let levelSettings = {
+    easy:   { p1: 0.7, p2: 0.25, p3: 0.05 },
+    medium: { p1: 0.4, p2: 0.4,  p3: 0.2 },
+    hard:   { p1: 0.2, p2: 0.5,  p3: 0.3 }
+};
+
+function setLevel() {
+    level = document.getElementById("levelSelect").value;
+    startGame2(); // restart with new difficulty
+}
+    
 let target = 0;
 let total = 0;
 
 // Start new round
 function startGame2() {
-    target = Math.floor(Math.random() * 500) + 1;
+    let settings = levelSettings[level];
+let random = Math.random();
+
+if (random < settings.p1) {
+    // Small numbers 1–100
+    target = Math.floor(Math.random() * 100) + 1;
+
+} else if (random < settings.p1 + settings.p2) {
+    // Medium 101–300
+    target = Math.floor(Math.random() * 200) + 101;
+
+} else {
+    // Large 301–500
+    target = Math.floor(Math.random() * 200) + 301;
+}
     total = 0;
 
     document.getElementById("targetNumber").innerText = formatDKK(target);
