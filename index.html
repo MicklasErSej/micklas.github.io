@@ -19,16 +19,17 @@ function generateNumber() {
     let random = Math.random();
     let number;
 
-    if (random < 0.5) {
-        // 50% → 1–100
+    let p1 = 0.5;  // 50%
+    let p2 = 0.4;  // 40%
+    let p3 = 0.1;  // 10%
+
+    if (random < p1) {
         number = Math.floor(Math.random() * 100) + 1;
 
-    } else if (random < 0.9) {
-        // 40% → 101–699
+    } else if (random < p1 + p2) {
         number = Math.floor(Math.random() * 599) + 101;
 
     } else {
-        // 10% → 700–1000
         number = Math.floor(Math.random() * 301) + 700;
     }
 
