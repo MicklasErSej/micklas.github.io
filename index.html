@@ -79,23 +79,38 @@
 <!-- Random Number Generator Game -->
 <div id="rng" class="game-screen">
     <h2>Random Number Generator 🎲</h2>
-    <div id="number">0</div>
-    <button onclick="generateNumber()">Generate Number</button>
 
-<div class="sliders">
-        <p>1–100: <span id="p1Text">50</span>%</p>
-        <input type="range" id="p1" min="0" max="100" value="50">
-
-        <p>101–699: <span id="p2Text">40</span>%</p>
-        <input type="range" id="p2" min="0" max="100" value="40">
-
-        <p>700–1000: <span id="p3Text">10</span>%</p>
-        <input type="range" id="p3" min="0" max="100" value="10">
+    <!-- Number Display -->
+    <div id="numberWrapper" style="margin-bottom: 30px;">
+        <div id="number">0</div>
     </div>
 
-    <button onclick="backToMenu()">Back to Menu</button>
-</div>
+    <!-- Button + Sliders Side by Side -->
+    <div id="rngControls" style="display: flex; justify-content: center; align-items: flex-start; gap: 50px; margin-top: 30px;">
 
+        <!-- Generate Button Wrapper -->
+        <div id="generateButtonWrapper" style="margin-top: 0;">
+            <button onclick="generateNumber()">Generate Number</button>
+        </div>
+
+        <!-- Sliders Wrapper -->
+        <div class="sliders" style="margin-top: 0; width: 300px;">
+            <p>1–100: <span id="p1Text">50</span>%</p>
+            <input type="range" id="p1" min="0" max="100" value="50">
+
+            <p>101–699: <span id="p2Text">40</span>%</p>
+            <input type="range" id="p2" min="0" max="100" value="40">
+
+            <p>700–1000: <span id="p3Text">10</span>%</p>
+            <input type="range" id="p3" min="0" max="100" value="10">
+        </div>
+    </div>
+
+    <!-- Back Button Wrapper -->
+    <div id="backButtonWrapper" style="margin-top: 40px;">
+        <button onclick="backToMenu()">Back to Menu</button>
+    </div>
+</div>
 <!-- Future Game 2 -->
 <div id="game2" class="game-screen">
     <h2>Game 2 (Coming Soon)</h2>
