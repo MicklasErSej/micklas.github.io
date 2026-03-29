@@ -104,31 +104,29 @@
 
 <script>
 function showGame(gameId){
-    const title = document.getElementById('hubTitle');
-    // Fade out
-    title.style.opacity = 0;
+    const menu = document.getElementById('menuWrapper');
+    // Fade out menu
+    menu.style.opacity = 0;
 
-    // After fade, hide it completely and show the game
+    // After fade finishes, hide menu completely and show game
     setTimeout(() => {
-        title.style.display = 'none';
-        document.getElementById('mainMenu').style.display = 'none';
+        menu.style.display = 'none';
         document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
         document.getElementById(gameId).style.display = 'block';
     }, 500); // 500ms matches CSS transition
 }
 
 function backToMenu(){
-    const title = document.getElementById('hubTitle');
-    // Show title first, but invisible
-    title.style.display = 'block';
-    title.style.opacity = 0;
+    const menu = document.getElementById('menuWrapper');
+    // Show menu first, but invisible
+    menu.style.display = 'block';
+    menu.style.opacity = 0;
 
-    document.getElementById('mainMenu').style.display = 'block';
     document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
 
     // Fade in
     setTimeout(() => {
-        title.style.opacity = 1;
+        menu.style.opacity = 1;
     }, 10); // tiny delay to trigger transition
 }
 
