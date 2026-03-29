@@ -67,7 +67,7 @@
 </head>
 <body>
 
-<h1 id="hubTitle">Game Hub 🎮</h1>
+<h1 id="hubTitle" style="transition: opacity 0.5s;">Game Hub 🎮</h1>
 
 <!-- Main Menu -->
 <div id="mainMenu">
@@ -103,16 +103,32 @@
 
 <script>
 function showGame(gameId){
-    document.getElementById('hubTitle').style.display = 'none'; // Hide the title
-    document.getElementById('mainMenu').style.display = 'none';
-    document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
-    document.getElementById(gameId).style.display = 'block';
+    const title = document.getElementById('hubTitle');
+    // Fade out
+    title.style.opacity = 0;
+
+    // After fade, hide it completely and show the game
+    setTimeout(() => {
+        title.style.display = 'none';
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
+        document.getElementById(gameId).style.display = 'block';
+    }, 500); // 500ms matches CSS transition
 }
 
 function backToMenu(){
-    document.getElementById('hubTitle').style.display = 'block'; // Show the title again
+    const title = document.getElementById('hubTitle');
+    // Show title first, but invisible
+    title.style.display = 'block';
+    title.style.opacity = 0;
+
     document.getElementById('mainMenu').style.display = 'block';
     document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
+
+    // Fade in
+    setTimeout(() => {
+        title.style.opacity = 1;
+    }, 10); // tiny delay to trigger transition
 }
 
 // Random Number Generator    JS 
