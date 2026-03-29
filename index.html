@@ -333,10 +333,10 @@ function resetTotal() {
 // Check answer
 function checkAnswer() {
     if (Math.abs(total - target) < 0.01) {
-        document.getElementById("resultText").innerText = "✅ Correct!";
+        document.getElementById("resultText").innerText = "✅ Korrekt!";
         setTimeout(startGame2, 1000); // new round after 1 sec
     } else {
-        document.getElementById("resultText").innerText = "❌ Try again!";
+        document.getElementById("resultText").innerText = "❌ Prøv Igen!";
     }
 }
 
