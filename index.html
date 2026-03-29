@@ -130,51 +130,55 @@
     </div>
 </div>
 
-<!-- Future Game 2 -->
+<!-- Game 2: Cash Register Trainer -->
 <div id="game2" class="game-screen" style="position: relative;">
     <h2>Cash Register Trainer 💰</h2>
 
-    <div id="targetNumber" style="font-size:40px; margin:20px;">
+    <!-- Target Number -->
+    <div id="targetNumber" style="font-size:50px; font-weight:bold; margin:20px; color:#2E8B57;">
         0
     </div>
 
-    <div id="currentTotal" style="font-size:30px; margin:20px;">
+    <!-- Current Total -->
+    <div id="currentTotal" style="font-size:36px; font-weight:bold; margin:20px; color:#1E90FF;">
         Total: 0
     </div>
 
- <!-- Level System -->
-    <p><b>Select Level:</b></p>
-
-<select id="levelSelect" onchange="setLevel()">
-    <option value="easy">Easy</option>
-    <option value="medium">Medium</option>
-    <option value="hard">Hard</option>
-</select>
-
-    <!-- Buttons -->
-    <div>
-        <button onclick="addValue(0.5)">0.5</button>
-        <button onclick="addValue(1)">1</button>
-        <button onclick="addValue(2)">2</button>
-        <button onclick="addValue(5)">5</button>
-        <button onclick="addValue(10)">10</button>
-        <button onclick="addValue(20)">20</button>
-        <button onclick="addValue(50)">50</button>
-        <button onclick="addValue(100)">100</button>
-        <button onclick="addValue(200)">200</button>
-        <button onclick="addValue(500)">500</button>
+    <!-- Level Selection -->
+    <div style="margin-bottom:20px;">
+        <label for="levelSelect"><b>Select Level:</b></label>
+        <select id="levelSelect" onchange="setLevel()" style="font-size:22px; padding:5px 10px;">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
     </div>
 
-    <br>
+    <!-- Money Buttons Grid -->
+    <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; max-width:600px; margin:20px auto;">
+        <button onclick="addValue(0.5)">0,50 kr</button>
+        <button onclick="addValue(1)">1 kr</button>
+        <button onclick="addValue(2)">2 kr</button>
+        <button onclick="addValue(5)">5 kr</button>
+        <button onclick="addValue(10)">10 kr</button>
+        <button onclick="addValue(20)">20 kr</button>
+        <button onclick="addValue(50)">50 kr</button>
+        <button onclick="addValue(100)">100 kr</button>
+        <button onclick="addValue(200)">200 kr</button>
+        <button onclick="addValue(500)">500 kr</button>
+    </div>
 
-    <button onclick="checkAnswer()">Check</button>
-    <button onclick="resetTotal()">Reset</button>
+    <!-- Actions -->
+    <div style="margin:20px;">
+        <button onclick="checkAnswer()" style="padding:15px 30px; font-size:24px; background-color:#FFA500;">Check</button>
+        <button onclick="resetTotal()" style="padding:15px 30px; font-size:24px; background-color:#FF6347;">Reset</button>
+    </div>
 
-    <p id="resultText"></p>
+    <!-- Result Text -->
+    <p id="resultText" style="font-size:30px; font-weight:bold; color:#FF4500;"></p>
 
-    <button onclick="backToMenu()" style="position:absolute; top:20px; right:20px;">
-        Back to Menu
-    </button>
+    <!-- Back Button -->
+    <button onclick="backToMenu()" style="position:absolute; top:20px; right:20px; padding:10px 20px;">Back to Menu</button>
 </div>
 
 <script>
