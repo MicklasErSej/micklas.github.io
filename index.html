@@ -167,14 +167,29 @@
         style="position:absolute; bottom:-543px; Left:0px;">History</button>
 
     <!-- History Panel -->
-    <div id="historyPanel" 
-         style="display:none; position:absolute; bottom:-430px; left:0px; 
-            width:250px; max-height:400px; overflow-y:auto; 
+<div id="historyPanel" 
+     style="display:none; 
+            position:absolute; top:60px; right:20px; 
+            width:250px; height:300px;  /* fixed height */
             background:#fff; border:2px solid #4CAF50; border-radius:10px; 
-            padding:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-        <h3>History</h3>
-        <ul id="historyList" style="list-style:none; padding-left:5px; margin:0;"></ul>
-    </div>
+            padding:0; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+
+    <!-- Sticky Header -->
+    <h3 style="
+            margin:0; padding:10px; 
+            background:#4CAF50; color:#fff; 
+            font-size:18px; text-align:center; 
+            position:sticky; top:0; z-index:1;
+            border-top-left-radius:8px; border-top-right-radius:8px;">
+        History
+    </h3>
+
+    <!-- Scrollable List -->
+    <ul id="historyList" style="
+            list-style:none; padding:10px; margin:0; 
+            max-height:240px; overflow-y:auto;">
+    </ul>
+</div>
 
     <!-- Actions -->
     <div style="margin:20px;">
