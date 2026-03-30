@@ -554,6 +554,7 @@ document.getElementById("startMicBtn").onclick = function() {
                 if (event.results[i].isFinal) {
                     const spoken = event.results[i][0].transcript;
                     checkSayNumber(spoken);
+                    console.log("You said:", spokenText);
                 }
             }
         }
