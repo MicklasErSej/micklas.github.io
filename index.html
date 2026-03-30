@@ -384,6 +384,12 @@ function toggleHistory() {
     panel.style.display = panel.style.display === "none" ? "block" : "none";
 }
 
+// Clear History button functionality
+document.getElementById("clearHistoryButton").addEventListener("click", () => {
+    history = []; // empty history array
+    document.getElementById("historyList").innerHTML = ""; // clear panel
+});
+
 // Update history
 function updateHistory(target, entered) {
     history.push({ target: target, entered: entered });
