@@ -1,367 +1,229 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Menuen</title>
-
 <style>
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
-    margin: 0;
-}
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f4f4f4;
+        margin: 50px;
+    }
 
-/* Center everything nicely */
-.game-screen {
-    display: none;
-    min-height: 100vh;
-    padding: 20px;
-}
+    h1 {
+        margin-bottom: 40px;
+    }
 
-/* Card style (reusable) */
-.card {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 800px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+    .game-screen {
+        display: none;
+    }
 
-/* Buttons */
-button {
-    padding: 15px 25px;
-    font-size: 20px;
-    border: none;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-}
+    #number {
+        font-size: 80px;
+        font-weight: bold;
+        background-color: #fff;
+        padding: 40px 0;
+        border-radius: 15px;
+        margin-top: 45px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-button:hover {
-    background-color: #333;
-}
+    #generateButton {
+        position: absolute;
+        top: 315px;
+        margin: 0;
+        justify-self: anchor-center;
+        font-size: 55px;
+    }
 
-/* Top bar */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    button {
+        padding: 20px 40px;
+        font-family: Arial, sans-serif;
+        font-size: 30px;
+        border: none;
+        border-radius: 10px;
+        background-color: #000000;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-/* RNG number */
-#number {
-    font-size: 70px;
-    font-weight: bold;
-}
+    button:hover {
+        background-color: #3d3d3d;
+    }
 
-/* Sliders */
-.sliders {
-    text-align: left;
-}
+    .sliders {
+        background-color: #fff;
+        display: inline-block;
+        padding: 20px 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        text-align: left;
+        position: absolute;
+        top: 900px;
+        margin: 0;
+    }
 
-.sliders input {
-    width: 100%;
-}
+    .sliders p {
+        margin: 15px 0 5px;
+        font-weight: bold;
+    }
 
-/* Money buttons */
-.money-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
-}
-
-/* History panel */
-#historyPanel {
-    display: none;
-    position: fixed;
-    left: 20px;
-    top: 80px;
-    width: 280px;
-    height: 300px;
-    background: white;
-    border: 2px solid #4CAF50;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-#historyList {
-    overflow-y: auto;
-    height: 240px;
-    padding: 10px;
-}
-
-/* All-time badge */
-#allTimeBox {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: gold;
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-weight: bold;
-}
+    .sliders input[type="range"] {
+        width: 100%;
+    }
 </style>
-
 </head>
-
 <body>
 
-<!-- MENU -->
-
-<div id="menuWrapper">
+<div id="menuWrapper" style="transition: opacity 0.5s;">
     <h1>Menuen</h1>
-    <button onclick="showGame('rng')">Tallene</button>
-    <button onclick="showGame('game2')">Penge Tilbage</button>
+    <!-- Main Menu -->
+    <div id="mainMenu">
+        <button onclick="showGame('rng')">Tallene</button>
+        <button onclick="showGame('game2')">Penge Tilbage</button>
+    </div>
 </div>
 
-<!-- RNG -->
-
-<div id="rng" class="game-screen">
-
-```
-<div class="top-bar">
+<!-- Random Number Generator Game -->
+<div id="rng" class="game-screen" style="position: relative;">
     <h2>Tallene</h2>
-    <button onclick="backToMenu()">Tilbage</button>
+
+    <!-- Number Display -->
+    <div id="numberWrapper" style="margin-bottom: 30px;">
+        <div id="number">0</div>
+    </div>
+
+    <!-- Button + Sliders Side by Side -->
+    <div id="rngControls" style="display: flex; justify-content: center; align-items: flex-start; gap: 50px; margin-top: 30px;">
+
+        <!-- Generate Button Wrapper -->
+        <div id="generateButtonWrapper" style="margin-top: 0;">
+            <button id="generateButton" onclick="generateNumber()"style=>Generere Tal</button>
+        </div>
+
+        <!-- Sliders Wrapper -->
+        <div class="sliders" style="margin-top: 0; width: 1000px;">
+            <p>1–100: <span id="p1Text">50</span>%</p>
+            <input type="range" id="p1" min="0" max="100" value="50">
+
+            <p>101–699: <span id="p2Text">40</span>%</p>
+            <input type="range" id="p2" min="0" max="100" value="40">
+
+            <p>700–1000: <span id="p3Text">10</span>%</p>
+            <input type="range" id="p3" min="0" max="100" value="10">
+        </div>
+    </div>
+
+    <!-- Back Button Wrapper -->
+    <div id="backButtonWrapper" style="margin-top: 40px;">
+        <button onclick="backToMenu()" style="position:absolute; top:-12px; right:0px; padding:10px 17px;">Tilbage Til Menuen</button>
+    </div>
 </div>
 
-<div class="card">
-    <div id="number">0</div>
-    <button onclick="generateNumber()">Generere Tal</button>
-</div>
-
-<div class="card sliders">
-    <p>1–100: <span id="p1Text">50</span>%</p>
-    <input type="range" id="p1" min="0" max="100" value="50">
-
-    <p>101–699: <span id="p2Text">40</span>%</p>
-    <input type="range" id="p2" min="0" max="100" value="40">
-
-    <p>700–1000: <span id="p3Text">10</span>%</p>
-    <input type="range" id="p3" min="0" max="100" value="10">
-</div>
-```
-
-</div>
-
-<!-- GAME 2 -->
-
-<div id="game2" class="game-screen">
-
-```
-<div class="top-bar">
+<!-- Game 2: Cash Register Trainer -->
+<div id="game2" class="game-screen" style="position: relative;">
     <h2>Penge Tilbage</h2>
-    <button onclick="backToMenu()">Tilbage</button>
+
+    <!-- Target Number -->
+    <div id="targetNumber" style="font-size:82px; font-weight:bold; margin:20px; color:#2E8B57;">
+        0
+    </div>
+
+    <!-- Current Total -->
+    <div id="currentTotal" style="font-size:50px; font-weight:bold; margin:20px; color:#1E90FF;">
+        Total: 0
+    </div>
+
+    <!-- Level Selection -->
+    <div style="margin-bottom:20px;">
+        <label for="levelSelect"><b>Vælg Level:</b></label>
+        <select id="levelSelect" onchange="setLevel()" style="font-size:22px; padding:5px 10px;">
+            <option value="easy">Nem</option>
+            <option value="medium">Mellem</option>
+            <option value="hard">Svær</option>
+        </select>
+    </div>
+
+    <!-- Money Buttons Grid -->
+    <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; max-width:600px; margin:20px auto;">
+        <button onclick="addValue(0.5)">0,50 kr</button>
+        <button onclick="addValue(1)">1 kr</button>
+        <button onclick="addValue(2)">2 kr</button>
+        <button onclick="addValue(5)">5 kr</button>
+        <button onclick="addValue(10)">10 kr</button>
+        <button onclick="addValue(20)">20 kr</button>
+        <button onclick="addValue(50)">50 kr</button>
+        <button onclick="addValue(100)">100 kr</button>
+        <button onclick="addValue(200)">200 kr</button>
+        <button onclick="addValue(500)">500 kr</button>
+    </div>
+
+     <!-- History Buttom -->
+    
+    <button id="historyButton" onclick="toggleHistory()" 
+        style="position:absolute; top:-12px; Left:0px;">Historik</button>
+
+    <!-- History Panel -->
+<div id="historyPanel" 
+     style="display:none; 
+            position:absolute; top:100px; left:0px; 
+            width:300px; height:300px;  /* fixed height */
+            background:#fff; border:2px solid #4CAF50; border-radius:10px; 
+            padding:0; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+
+    <!-- Sticky Header -->
+    <h3 style="
+            margin:0; padding:10px; 
+            background:#4CAF50; color:#fff; 
+            font-size:18px; text-align:center; 
+            position:sticky; top:0; z-index:1;
+            border-top-left-radius:8px; border-top-right-radius:8px;">
+        History
+    </h3>
+
+    <!-- Scrollable List -->
+    <ul id="historyList" style="
+            list-style:none; padding:10px; margin:0; 
+            max-height:240px; overflow-y:auto;">
+    </ul>
 </div>
 
-<!-- Score -->
-<div class="card">
-    Score: <span id="score">0</span> |
+    <!-- Actions -->
+    <div style="margin:20px; margin-top: 20px">
+        <button onclick="checkAnswer()" style="padding:15px 30px; font-size:24px; background-color:#2E8B57;">Tjek</button>
+        <button onclick="resetTotal()" style="padding:15px 30px; font-size:24px; background-color:#FF6347;">Nulstil</button>
+    </div>
+
+    <!-- Result Text -->
+    <p id="resultText" style="font-size:30px; font-weight:bold; color:#FF4500;"></p>
+
+    <!-- Score Board -->
+    <div id="scoreBoard" style="font-size:20px; margin:10px; position: absolute; left: 295px; top: -12px; background:#fff; padding:10px 15px; border-radius:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+        Score: <span id="score">0</span> |
     🔥 Session: <span id="sessionBest">0</span>
 </div>
 
-<!-- Target -->
-<div class="card">
-    <div id="targetNumber" style="font-size:60px; color:#2E8B57;">0</div>
-    <div id="currentTotal" style="font-size:40px; color:#1E90FF;">Total: 0</div>
+<!-- All-time score (separate box) -->
+<div id="allTimeBox" style="
+    position:absolute;
+    bottom:20px;
+    right:20px;
+    font-size:20px;
+    background:#fff;
+    padding:10px 15px;
+    border-radius:10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: fixed;
+">
+    🏆 All-time: <span id="allTimeBest">0</span>
 </div>
 
-<!-- Level -->
-<div class="card">
-    <label>Level:</label>
-    <select id="levelSelect" onchange="setLevel()">
-        <option value="easy">Nem</option>
-        <option value="medium">Mellem</option>
-        <option value="hard">Svær</option>
-    </select>
+    <!-- Back Button -->
+    <button onclick="backToMenu()" style="position:absolute; top:-12px; right:0px; padding:10px 17px;">Tilbage Til Menuen</button>
 </div>
-
-<!-- Money -->
-<div class="card money-grid">
-    <button onclick="addValue(0.5)">0,50</button>
-    <button onclick="addValue(1)">1</button>
-    <button onclick="addValue(2)">2</button>
-    <button onclick="addValue(5)">5</button>
-    <button onclick="addValue(10)">10</button>
-    <button onclick="addValue(20)">20</button>
-    <button onclick="addValue(50)">50</button>
-    <button onclick="addValue(100)">100</button>
-    <button onclick="addValue(200)">200</button>
-    <button onclick="addValue(500)">500</button>
-</div>
-
-<!-- Actions -->
-<div class="card">
-    <button onclick="checkAnswer()">Tjek</button>
-    <button onclick="resetTotal()">Nulstil</button>
-    <p id="resultText"></p>
-</div>
-
-<!-- History Button -->
-<button onclick="toggleHistory()" style="position:fixed; top:20px; left:20px;">Historik</button>
-
-<!-- History Panel -->
-<div id="historyPanel">
-    <h3 style="background:#4CAF50;color:white;margin:0;padding:10px;">History</h3>
-    <ul id="historyList"></ul>
-</div>
-
-<!-- All time -->
-<div id="allTimeBox">
-    🏆 <span id="allTimeBest">0</span>
-</div>
-```
-
-</div>
-
-<script>
-// (KEEP YOUR JS EXACTLY SAME BELOW)
-// I DID NOT CHANGE LOGIC
-
-function showGame(gameId){
-    document.getElementById('menuWrapper').style.display = 'none';
-    document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
-    document.getElementById(gameId).style.display = 'block';
-
-    if (gameId === "game2") startGame2();
-}
-
-function backToMenu(){
-    document.getElementById('menuWrapper').style.display = 'block';
-    document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
-}
-
-// RNG
-const p1Slider = document.getElementById("p1");
-const p2Slider = document.getElementById("p2");
-const p3Slider = document.getElementById("p3");
-
-const p1Text = document.getElementById("p1Text");
-const p2Text = document.getElementById("p2Text");
-const p3Text = document.getElementById("p3Text");
-
-function updateDisplay() {
-    p1Text.innerText = p1Slider.value;
-    p2Text.innerText = p2Slider.value;
-    p3Text.innerText = p3Slider.value;
-}
-
-[p1Slider, p2Slider, p3Slider].forEach(slider => {
-    slider.oninput = updateDisplay;
-});
-
-function generateNumber() {
-    let p1 = p1Slider.value / 100;
-    let p2 = p2Slider.value / 100;
-    let random = Math.random();
-    let number;
-
-    if (random < p1) number = Math.floor(Math.random()*100)+1;
-    else if (random < p1+p2) number = Math.floor(Math.random()*599)+101;
-    else number = Math.floor(Math.random()*301)+700;
-
-    document.getElementById("number").innerText = number;
-}
-
-// GAME 2
-let level = "easy";
-let target = 0;
-let total = 0;
-let score = 0;
-let streak = 0;
-let sessionBest = 0;
-let allTimeBest = localStorage.getItem("bestStreak") ? parseInt(localStorage.getItem("bestStreak")) : 0;
-
-function setLevel(){
-    level = document.getElementById("levelSelect").value;
-    startGame2();
-}
-
-function startGame2(){
-    total = 0;
-    document.getElementById("resultText").innerText = "";
-
-    if(level==="easy") target=Math.floor(Math.random()*100)+1;
-    else if(level==="medium") target=Math.floor(Math.random()*200)+101;
-    else target=Math.floor(Math.random()*200)+301;
-
-    if(Math.random()<0.05) target+=0.5;
-
-    document.getElementById("targetNumber").innerText = formatDKK(target);
-    document.getElementById("currentTotal").innerText = "Total: "+formatDKK(total);
-}
-
-function addValue(v){
-    total+=v;
-    document.getElementById("currentTotal").innerText="Total: "+formatDKK(total);
-}
-
-function resetTotal(){
-    total=0;
-    document.getElementById("currentTotal").innerText="Total: 0";
-}
-
-function checkAnswer(){
-    updateHistory(target,total);
-    const result=document.getElementById("resultText");
-
-    if(Math.abs(total-target)<0.01){
-        result.innerText="✅ Correct!";
-        result.style.color="green";
-        score++; streak++;
-
-        if(streak>sessionBest) sessionBest=streak;
-        if(streak>allTimeBest){
-            allTimeBest=streak;
-            localStorage.setItem("bestStreak",allTimeBest);
-        }
-
-        setTimeout(startGame2,1000);
-    } else {
-        result.innerText="❌ Wrong!";
-        result.style.color="red";
-        score=0; streak=0;
-    }
-
-    document.getElementById("score").innerText=score;
-    document.getElementById("sessionBest").innerText=sessionBest;
-    document.getElementById("allTimeBest").innerText=allTimeBest;
-}
-
-function formatDKK(v){
-    return v.toFixed(2).replace(".",",")+" kr";
-}
-
-// History
-let history=[];
-
-function toggleHistory(){
-    let p=document.getElementById("historyPanel");
-    p.style.display=p.style.display==="none"?"block":"none";
-}
-
-function updateHistory(t,e){
-    history.push({target:t,entered:e});
-    let list=document.getElementById("historyList");
-    list.innerHTML="";
-
-    history.slice().reverse().forEach(item=>{
-        let li=document.createElement("li");
-        let correct=Math.abs(item.entered-item.target)<0.01;
-        li.innerText=(correct?"✅ ":"❌ ")+" "+formatDKK(item.target)+" / "+formatDKK(item.entered);
-        list.appendChild(li);
-    });
-}
-
-updateDisplay();
-document.getElementById("allTimeBest").innerText=allTimeBest;
-</script>
-
-</body>
-</html>
 
 <script>
 function showGame(gameId){
