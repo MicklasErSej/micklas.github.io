@@ -366,12 +366,12 @@ function checkAnswer() {
     const result = document.getElementById("resultText");
 
     if (Math.abs(total - target) < 0.01) {
-        result.innerText = "✅ Correct!";
+        result.innerText = "✅ Korrekt!";
         result.style.color = "#2E8B57";  // ✅ green when correct
 
         setTimeout(startGame2, 1000);
     } else {
-        result.innerText = "❌ Try again!";
+        result.innerText = "❌ Prøv Igen!";
         result.style.color = "#FF3B30";    // ❌ red when wrong
     }
 }
