@@ -360,6 +360,8 @@ function checkAnswer() {
 
     if (Math.abs(total - target) < 0.01) {
         document.getElementById("resultText").innerText = "✅ Correct!";
+        result.style.color = "green";  // ✅ green when correct
+        
         setTimeout(startGame2, 1000); // new round after 1 sec
     } else {
         document.getElementById("resultText").innerText = "❌ Try again!";
