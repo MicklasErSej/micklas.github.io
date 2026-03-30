@@ -202,8 +202,10 @@
 
     <!-- Score Board -->
     <div id="scoreBoard" style="font-size:24px; margin:10px; position: absolute; left: 295px; top: -12px;">
-        Score: <span id="score">0</span> | 🔥 Best: <span id="streak">0</span>
-    </div>
+        Score: <span id="score">0</span> |
+    🔥 Session: <span id="sessionBest">0</span> |
+    🏆 All-time: <span id="allTimeBest">0</span>
+</div>
 
     <!-- Back Button -->
     <button onclick="backToMenu()" style="position:absolute; top:-12px; right:0px; padding:10px 17px;">Tilbage Til Menuen</button>
@@ -326,8 +328,11 @@ let total = 0;
 let score = 0;
 let streak = 0;
 
-// Load from browser (or 0 if nothing saved)
-let bestStreak = localStorage.getItem("bestStreak") 
+// Session best (resets)
+let sessionBest = 0;
+
+// All-time best (saved)
+let allTimeBest = localStorage.getItem("bestStreak") 
     ? parseInt(localStorage.getItem("bestStreak")) 
     : 0;
 
@@ -378,25 +383,31 @@ function checkAnswer() {
         score++;
         streak++;
 
-        // Update best streak
-        if (streak > bestStreak) {
-            bestStreak = streak;
+        // Update session best
+        if (streak > sessionBest) {
+            sessionBest = streak;
+        }
 
-            // Save to browser
-            localStorage.setItem("bestStreak", bestStreak);
+        // Update all-time best
+        if (streak > allTimeBest) {
+            allTimeBest = streak;
+            localStorage.setItem("bestStreak", allTimeBest);
         }
 
         setTimeout(startGame2, 1000);
+
     } else {
-        result.innerText = "❌ Try again!";
+        result.innerText = "❌ Wrong! Score reset!";
         result.style.color = "red";
 
-        score = 0;     // 🔴 reset score on fail
-        streak = 0;    // 🔴 reset streak
+        score = 0;
+        streak = 0;
     }
 
+    // Update UI
     document.getElementById("score").innerText = score;
-    document.getElementById("streak").innerText = bestStreak;
+    document.getElementById("sessionBest").innerText = sessionBest;
+    document.getElementById("allTimeBest").innerText = allTimeBest;
 }
     
 function formatDKK(value) {
@@ -433,7 +444,8 @@ function updateHistory(target, entered) {
 
 // Initialize display
 updateDisplay();
-document.getElementById("streak").innerText = bestStreak;
+document.getElementById("sessionBest").innerText = sessionBest;
+document.getElementById("allTimeBest").innerText = allTimeBest;
 </script>
 
 </body>
