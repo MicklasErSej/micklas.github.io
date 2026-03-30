@@ -552,9 +552,9 @@ document.getElementById("startMicBtn").onclick = function() {
         recognition.onresult = function(event) {
             for (let i = event.resultIndex; i < event.results.length; i++) {
                 if (event.results[i].isFinal) {
-                    const spoken = event.results[i][0].transcript;
+                    const spoken = event.results[i][0].transcript;  // this is the recognized speech
                     checkSayNumber(spoken);
-                    console.log("You said:", spokenText);
+                    console.log("You said:", spoken);  // <- use the same variable
                 }
             }
         }
