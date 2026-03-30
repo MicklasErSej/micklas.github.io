@@ -367,12 +367,12 @@ function checkAnswer() {
 
     if (Math.abs(total - target) < 0.01) {
         result.innerText = "✅ Correct!";
-        result.style.color = "green";  // ✅ green when correct
+        result.style.color = "#2E8B57";  // ✅ green when correct
 
         setTimeout(startGame2, 1000);
     } else {
         result.innerText = "❌ Try again!";
-        result.style.color = "red";    // ❌ red when wrong
+        result.style.color = "#FF3B30";    // ❌ red when wrong
     }
 }
 function formatDKK(value) {
