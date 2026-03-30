@@ -574,33 +574,31 @@ document.getElementById("startMicBtn").onclick = function() {
     if (!recognition) {
         recognition = new webkitSpeechRecognition();
         recognition.lang = 'da-DK';
-        recognition.continuous = true;     // 👈 stops after each sentence
-        recognition.interimResults = true;  // 👈 gives faster results
+        recognition.continuous = true;      
+        recognition.interimResults = false;  // 👈 only final results
 
         recognition.onresult = function(event) {
+            // Always take the first final result after user stops
             for (let i = event.resultIndex; i < event.results.length; i++) {
-                const spoken = event.results[i][0].transcript.toLowerCase().trim();
-        
-                // Only act on final results
                 if (event.results[i].isFinal) {
+                    const spoken = event.results[i][0].transcript.toLowerCase().trim();
                     console.log("You said (final):", spoken);
                     checkSayNumber(spoken);
-                } else {
-                    console.log("Interim:", spoken); // optional: just for debugging
+                    break; // 👈 process only first final result
                 }
             }
         };
 
         recognition.onerror = function(event) {
             console.log("Error:", event.error);
-        }
-    }
+        };
 
         recognition.onend = function() {
             if (listening) {
-                recognition.start(); // 👈 auto restart
-        }
-    };
+                recognition.start(); // auto-restart microphone
+            }
+        };
+    }
 
     if (!listening) {
         recognition.start();
@@ -618,7 +616,6 @@ function checkSayNumber(spoken) {
     const resultEl = document.getElementById("sayNumberResult");
     const displayEl = document.getElementById("sayNumberDisplay");
 
-    // Convert directly to number
     const num = parseFloat(spoken.replace(",", "."));
 
     console.log("Detected number:", num, "Target:", sayNumberTarget);
@@ -630,10 +627,7 @@ function checkSayNumber(spoken) {
         sayScore++;
         sayNumberStreak++;
 
-        if (sayNumberStreak > saySessionBest) {
-            saySessionBest = sayNumberStreak;
-        }
-
+        if (sayNumberStreak > saySessionBest) saySessionBest = sayNumberStreak;
         if (sayNumberStreak > sayAllTimeBest) {
             sayAllTimeBest = sayNumberStreak;
             localStorage.setItem("sayBestStreak", sayAllTimeBest);
@@ -644,18 +638,15 @@ function checkSayNumber(spoken) {
         document.getElementById("saySessionBest").innerText = saySessionBest;
         document.getElementById("sayAllTimeBest").innerText = sayAllTimeBest;
 
-        // Clear number briefly
-        displayEl.innerText = "";
-
+        displayEl.innerText = ""; // clear before next number
         setTimeout(() => {
             resultEl.innerText = "";
             generateSayNumber();
-        }, 1000);
+        }, 700); // slightly faster than 1 sec
 
     } else {
         resultEl.innerText = "❌ Wrong! Prøv igen...";
         resultEl.style.color = "red";
-
         sayScore = 0;
         sayNumberStreak = 0;
 
@@ -663,12 +654,13 @@ function checkSayNumber(spoken) {
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
     }
 }
-// Start game when user clicks on it
+
+// Start game
 function initSayNumber() {
     startSayNumberGame();
 }
 
-// Hook it when showing the game
+// Show game hook
 function showGame(gameId){
     const menu = document.getElementById('menuWrapper');
     menu.style.opacity = 0;
@@ -678,10 +670,8 @@ function showGame(gameId){
         document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
         document.getElementById(gameId).style.display = 'block';
 
-        // Call specific start functions
         if (gameId === "game2") startGame2();
         if (gameId === "sayNumber") initSayNumber();
-
     }, 500);
 }
 </script>
