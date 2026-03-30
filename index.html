@@ -256,6 +256,30 @@
 
     <!-- Streak counter -->
     <p style="font-size:24px;">🔥 Streak: <span id="sayNumberStreak">0</span></p>
+    
+<div id="sayNumberScoreBoard" style="
+    font-size:20px; margin-top:10px;
+    background:#fff; padding:10px 15px;
+    border-radius:10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display:inline-block;
+">
+    Score: <span id="sayScore">0</span> |
+    🔥 Session: <span id="saySessionBest">0</span>
+</div>
+
+<div id="sayAllTimeBox" style="
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    font-size:20px;
+    background:#fff;
+    padding:10px 15px;
+    border-radius:10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+">
+    🏆 All-time: <span id="sayAllTimeBest">0</span>
+</div>
 
     <!-- Back button -->
     <button onclick="backToMenu()" style="
@@ -510,10 +534,23 @@ let sayNumberTarget = 0;
 let sayNumberStreak = 0;
 let recognition;
 let listening = false;
+let sayScore = 0;
+let saySessionBest = 0;
+
+let sayAllTimeBest = localStorage.getItem("sayBestStreak")
+    ? parseInt(localStorage.getItem("sayBestStreak"))
+    : 0;
 
 function startSayNumberGame() {
     sayNumberStreak = 0;
+    sayScore = 0;
+    saySessionBest = 0;
+
     document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
+    document.getElementById("sayScore").innerText = sayScore;
+    document.getElementById("saySessionBest").innerText = saySessionBest;
+    document.getElementById("sayAllTimeBest").innerText = sayAllTimeBest;
+
     generateSayNumber();
     document.getElementById("sayNumberResult").innerText = "";
 }
@@ -588,19 +625,33 @@ function checkSayNumber(spoken) {
         num = parseDanishNumber(spoken);
     }
 
-    console.log("Recognized:", num, "Target:", sayNumberTarget);
-
     if (!isNaN(num) && Math.abs(num - sayNumberTarget) < 0.01) {
         resultEl.innerText = "✅ Correct!";
         resultEl.style.color = "green";
 
+        sayScore++;
         sayNumberStreak++;
-        document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
 
-        // 👇 CLEAR NUMBER (this is the new part)
+        // Update session best
+        if (sayNumberStreak > saySessionBest) {
+            saySessionBest = sayNumberStreak;
+        }
+
+        // Update all-time best
+        if (sayNumberStreak > sayAllTimeBest) {
+            sayAllTimeBest = sayNumberStreak;
+            localStorage.setItem("sayBestStreak", sayAllTimeBest);
+        }
+
+        // Update UI
+        document.getElementById("sayScore").innerText = sayScore;
+        document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
+        document.getElementById("saySessionBest").innerText = saySessionBest;
+        document.getElementById("sayAllTimeBest").innerText = sayAllTimeBest;
+
+        // Clear number
         displayEl.innerText = "";
 
-        // ⏳ Wait before next number
         setTimeout(() => {
             resultEl.innerText = "";
             generateSayNumber();
@@ -610,7 +661,10 @@ function checkSayNumber(spoken) {
         resultEl.innerText = "❌ Wrong! Prøv igen...";
         resultEl.style.color = "red";
 
+        sayScore = 0;
         sayNumberStreak = 0;
+
+        document.getElementById("sayScore").innerText = sayScore;
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
     }
 }
