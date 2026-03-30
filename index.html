@@ -393,8 +393,6 @@ function checkAnswer() {
     if (Math.abs(total - target) < 0.01) {
         result.innerText = "✅ Correct!";
         result.style.color = "green";
-        result.postion = "fixed";
-        result.justify.self = "anchor-center";
 
         score++;
         streak++;
