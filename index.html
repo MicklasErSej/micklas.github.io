@@ -562,7 +562,6 @@ function startSayNumberGame() {
 function generateSayNumber() {
     sayNumberTarget = Math.floor(Math.random() * 100) + 1;
     document.getElementById("sayNumberDisplay").innerText = sayNumberTarget;
-    waitingForResult = true; // ready for next spoken number
 }
 
 // Start/Stop microphone
@@ -578,21 +577,19 @@ document.getElementById("startMicBtn").onclick = function() {
         recognition.continuous = true;     // 👈 stops after each sentence
         recognition.interimResults = true;  // 👈 gives faster results
 
-let waitingForResult = true; // <-- NEW flag
-
-recognition.onresult = function(event) {
-    if (!waitingForResult) return; // ignore extra results
-
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal) {
-            const spoken = event.results[i][0].transcript.trim();
-            console.log("Final recognized:", spoken);
-            checkSayNumber(spoken);
-            waitingForResult = false; // ignore the rest until next number
-            break; // take only first final
-        }
-    }
-}
+        recognition.onresult = function(event) {
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const spoken = event.results[i][0].transcript.toLowerCase().trim();
+        
+                // Only act on final results
+                if (event.results[i].isFinal) {
+                    console.log("You said (final):", spoken);
+                    checkSayNumber(spoken);
+                } else {
+                    console.log("Interim:", spoken); // optional: just for debugging
+                }
+            }
+        };
 
         recognition.onerror = function(event) {
             console.log("Error:", event.error);
