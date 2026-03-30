@@ -606,6 +606,12 @@ document.getElementById("startMicBtn").onclick = function() {
         }
     }
 
+        recognition.onend = function() {
+            if (listening) {
+                recognition.start(); // 👈 auto restart
+        }
+    };
+
     if (!listening) {
         recognition.start();
         listening = true;
