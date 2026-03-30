@@ -401,19 +401,11 @@ function updateHistory(target, entered) {
         const li = document.createElement("li");
 
         // Check if correct
-function checkAnswer() {
-    updateHistory(target, total);
+        const correct = Math.abs(item.entered - item.target) < 0.01;
+        const icon = correct ? "✅" : "❌";
 
-    const result = document.getElementById("resultText");
-
-    if (Math.abs(total - target) < 0.01) {
-        result.innerText = "✅ Correct!";
-        result.style.color = "green";  // ✅ green when correct
-
-        setTimeout(startGame2, 1000);
-    } else {
-        result.innerText = "❌ Try again!";
-        result.style.color = "red";    // ❌ red when wrong
+        li.innerText = `${icon} Target: ${formatDKK(item.target)}, Entered: ${formatDKK(item.entered)}`;
+        list.appendChild(li);
     });
 }
 
