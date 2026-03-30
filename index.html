@@ -577,19 +577,16 @@ document.getElementById("startMicBtn").onclick = function() {
 
 // Check if spoken number is correct
 function checkSayNumber(spoken) {
-    const num = parseFloat(spoken.trim().replace(",", "."));
+    const num = parseDanishNumber(spoken);
+    const resultEl = document.getElementById("sayNumberResult");
 
-    console.log("Spoken number parsed:", num, "Target:", sayNumberTarget);
-
-    if (!isNaN(num) && Math.abs(num - sayNumberTarget) < 0.01) {
-        // ✅ Correct
+    if (num === sayNumberTarget) {
         resultEl.innerText = "✅ Correct!";
         resultEl.style.color = "green";
         sayNumberStreak++;
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
-        generateSayNumber(); // generate new number
+        generateSayNumber();
     } else {
-        // ❌ Wrong
         resultEl.innerText = "❌ Wrong! Prøv igen...";
         resultEl.style.color = "red";
         sayNumberStreak = 0;
