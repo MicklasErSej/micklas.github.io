@@ -497,13 +497,123 @@ function updateHistory(target, entered) {
         list.appendChild(li);
     });
 }
-
-<script>
     
 // Initialize display
 updateDisplay();
 document.getElementById("sessionBest").innerText = sessionBest;
 document.getElementById("allTimeBest").innerText = allTimeBest;
+
+// Say the Number Game
+let sayNumberTarget = 0;
+let sayNumberStreak = 0;
+let recognition;
+let listening = false;
+
+function startSayNumberGame() {
+    sayNumberStreak = 0;
+    document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
+    generateSayNumber();
+    document.getElementById("sayNumberResult").innerText = "";
+}
+
+// Generate a number between 1-100
+function generateSayNumber() {
+    sayNumberTarget = Math.floor(Math.random() * 100) + 1;
+    document.getElementById("sayNumberDisplay").innerText = sayNumberTarget;
+}
+
+// Map Danish spoken numbers to digits
+function parseDanishNumber(text) {
+    text = text.trim().toLowerCase();
+
+    // Very basic mapping (can expand later)
+    const numbers = {
+        "nul":0,"en":1,"et":1,"to":2,"tre":3,"fire":4,"fem":5,
+        "seks":6,"syv":7,"otte":8,"ni":9,"ti":10,
+        "elleve":11,"tolv":12,"tretten":13,"fjorten":14,"femten":15,
+        "seksten":16,"sytten":17,"atten":18,"nitten":19,"tyve":20
+    };
+    return numbers[text] !== undefined ? numbers[text] : NaN;
+}
+
+// Start/Stop microphone
+document.getElementById("startMicBtn").onclick = function() {
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("Din browser understøtter ikke talegenkendelse 😢. Prøv Chrome eller Edge.");
+        return;
+    }
+
+    if (!recognition) {
+        recognition = new webkitSpeechRecognition();
+        recognition.lang = 'da-DK';
+        recognition.continuous = true;
+        recognition.interimResults = false;
+
+        recognition.onresult = function(event) {
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    const spoken = event.results[i][0].transcript;
+                    checkSayNumber(spoken);
+                }
+            }
+        }
+
+        recognition.onerror = function(event) {
+            console.log("Error:", event.error);
+        }
+    }
+
+    if (!listening) {
+        recognition.start();
+        listening = true;
+        this.innerText = "Stop Listening";
+    } else {
+        recognition.stop();
+        listening = false;
+        this.innerText = "Start Listening";
+    }
+}
+
+// Check if spoken number is correct
+function checkSayNumber(spoken) {
+    const num = parseDanishNumber(spoken);
+    const resultEl = document.getElementById("sayNumberResult");
+
+    if (num === sayNumberTarget) {
+        resultEl.innerText = "✅ Correct!";
+        resultEl.style.color = "green";
+        sayNumberStreak++;
+        document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
+        generateSayNumber();
+    } else {
+        resultEl.innerText = "❌ Wrong! Prøv igen...";
+        resultEl.style.color = "red";
+        sayNumberStreak = 0;
+        document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
+    }
+}
+
+// Start game when user clicks on it
+function initSayNumber() {
+    startSayNumberGame();
+}
+
+// Hook it when showing the game
+function showGame(gameId){
+    const menu = document.getElementById('menuWrapper');
+    menu.style.opacity = 0;
+
+    setTimeout(() => {
+        menu.style.display = 'none';
+        document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
+        document.getElementById(gameId).style.display = 'block';
+
+        // Call specific start functions
+        if (gameId === "game2") startGame2();
+        if (gameId === "sayNumber") initSayNumber();
+
+    }, 500);
+}
 </script>
 
 </body>
