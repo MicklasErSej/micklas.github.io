@@ -13,7 +13,6 @@
 
     h1 {
         margin-bottom: 40px;
-        font-size: 70px;
     }
 
     .game-screen {
@@ -45,14 +44,14 @@
         font-size: 30px;
         border: none;
         border-radius: 10px;
-        background-color: #000000;
+        background-color: #4CAF50;
         color: white;
         cursor: pointer;
         transition: background-color 0.3s;
     }
 
     button:hover {
-        background-color: #3d3d3d;
+        background-color: #45a049;
     }
 
     .sliders {
@@ -80,17 +79,17 @@
 <body>
 
 <div id="menuWrapper" style="transition: opacity 0.5s;">
-    <h1>Menu</h1>
+    <h1>Game Hub 🎮</h1>
     <!-- Main Menu -->
     <div id="mainMenu">
-        <button onclick="showGame('rng')">Tallene</button>
-        <button onclick="showGame('game2')">Penge Tilbage</button>
+        <button onclick="showGame('rng')">Random Number Generator</button>
+        <button onclick="showGame('game2')">Game 2 (Coming Soon)</button>
     </div>
 </div>
 
 <!-- Random Number Generator Game -->
 <div id="rng" class="game-screen" style="position: relative;">
-    <h2>Tallene</h2>
+    <h2>Random Number Generator 🎲</h2>
 
     <!-- Number Display -->
     <div id="numberWrapper" style="margin-bottom: 30px;">
@@ -126,15 +125,15 @@
 
 <!-- Game 2: Cash Register Trainer -->
 <div id="game2" class="game-screen" style="position: relative;">
-    <h2>Penge Tilbage</h2>
+    <h2>Cash Register Trainer 💰</h2>
 
     <!-- Target Number -->
-    <div id="targetNumber" style="font-size:82px; font-weight:bold; margin:20px; color:#2E8B57;">
+    <div id="targetNumber" style="font-size:50px; font-weight:bold; margin:20px; color:#2E8B57;">
         0
     </div>
 
     <!-- Current Total -->
-    <div id="currentTotal" style="font-size:50px; font-weight:bold; margin:20px; color:#1E90FF;">
+    <div id="currentTotal" style="font-size:36px; font-weight:bold; margin:20px; color:#1E90FF;">
         Total: 0
     </div>
 
@@ -142,9 +141,9 @@
     <div style="margin-bottom:20px;">
         <label for="levelSelect"><b>Select Level:</b></label>
         <select id="levelSelect" onchange="setLevel()" style="font-size:22px; padding:5px 10px;">
-            <option value="easy">Nem</option>
-            <option value="medium">Mellem</option>
-            <option value="hard">Svær</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
         </select>
     </div>
 
@@ -162,39 +161,28 @@
         <button onclick="addValue(500)">500 kr</button>
     </div>
 
-    <!-- Score -->
-    <div id="scoreBoard" style="font-size:24px; margin:10px;">
-        Score: <span id="score">0</span> | 🔥 Streak: <span id="streak">0</span>
-    </div>
-
      <!-- History Buttom -->
     
     <button id="historyButton" onclick="toggleHistory()" 
-        style="position:absolute; top:-12px; Left:0px;padding:10px 17px;">Historik</button>
+        style="position:absolute; bottom:-543px; Left:0px;">History</button>
 
     <!-- History Panel -->
 <div id="historyPanel" 
      style="display:none; 
-            position:absolute; top:60px; left:0px; 
-            width:330px; height:300px;  /* fixed height */
+            position:absolute; top:60px; right:20px; 
+            width:250px; height:300px;  /* fixed height */
             background:#fff; border:2px solid #4CAF50; border-radius:10px; 
-            padding:0; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index:2;">
+            padding:0; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
 
     <!-- Sticky Header -->
-    <div style="
-            display:flex; justify-content:space-between; align-items:center;
+    <h3 style="
             margin:0; padding:10px; 
             background:#4CAF50; color:#fff; 
-            font-size:18px; font-weight:bold; text-align:center; 
+            font-size:18px; text-align:center; 
             position:sticky; top:0; z-index:1;
             border-top-left-radius:8px; border-top-right-radius:8px;">
-        <span>History</span>
-        <button id="clearHistoryButton" style="
-            background:#FF6347; color:#fff; border:none; 
-            border-radius:5px; padding:2px 6px; cursor:pointer; font-size:14px;">
-            Clear
-        </button>
-    </div>
+        History
+    </h3>
 
     <!-- Scrollable List -->
     <ul id="historyList" style="
@@ -205,12 +193,12 @@
 
     <!-- Actions -->
     <div style="margin:20px;">
-        <button onclick="checkAnswer()" style="padding:15px 30px; font-size:24px; background-color:#2E8B57;">Check</button>
+        <button onclick="checkAnswer()" style="padding:15px 30px; font-size:24px; background-color:#FFA500;">Check</button>
         <button onclick="resetTotal()" style="padding:15px 30px; font-size:24px; background-color:#FF6347;">Reset</button>
     </div>
 
     <!-- Result Text -->
-    <p id="resultText" style="font-size:30px; font-weight:bold;"></p>
+    <p id="resultText" style="font-size:30px; font-weight:bold; color:#FF4500;"></p>
 
     <!-- Back Button -->
     <button onclick="backToMenu()" style="position:absolute; top:-12px; right:0px; padding:10px 17px;">Back to Menu</button>
@@ -330,8 +318,6 @@ function setLevel() {
     
 let target = 0;
 let total = 0;
-let score = 0;
-let streak = 0;
 
 // Start new round
 function startGame2() {
@@ -345,7 +331,7 @@ function startGame2() {
     } else if (level === "medium") {
         target = Math.floor(Math.random() * 200) + 101;
     } else if (level === "hard") {
-        target = Math.floor(Math.random() * 300) + 301;
+        target = Math.floor(Math.random() * 200) + 301;
     }
 
      // 50% chance to add .50
@@ -369,22 +355,14 @@ function resetTotal() {
 
 // Check answer
 function checkAnswer() {
+    // Store attempt in history
     updateHistory(target, total);
 
-    const result = document.getElementById("resultText");
-
     if (Math.abs(total - target) < 0.01) {
-        result.innerText = "✅ Correct!";
-        result.style.color = "green";  // ✅ green when correct
-
-        setTimeout(startGame2, 1000);
+        document.getElementById("resultText").innerText = "✅ Correct!";
+        setTimeout(startGame2, 1000); // new round after 1 sec
     } else {
-        result.innerText = "❌ Try again!";
-        result.style.color = "red";    // ❌ red when wrong
-    }
-}
-function formatDKK(value) {
-    return value.toFixed(2).replace(".", ",") + " kr";
+        document.getElementById("resultText").innerText = "❌ Try again!";
     }
 }
 function formatDKK(value) {
@@ -399,12 +377,6 @@ function toggleHistory() {
     const panel = document.getElementById("historyPanel");
     panel.style.display = panel.style.display === "none" ? "block" : "none";
 }
-
-// Clear History button functionality
-document.getElementById("clearHistoryButton").addEventListener("click", () => {
-    history = []; // empty history array
-    document.getElementById("historyList").innerHTML = ""; // clear panel
-});
 
 // Update history
 function updateHistory(target, entered) {
