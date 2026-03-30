@@ -4,75 +4,297 @@
 <meta charset="UTF-8">
 <title>Game Hub</title>
 <style>
+    /* Reset & Base */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
-        background-color: #f4f4f4;
-        margin: 50px;
+        background: #f0f2f5;
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
     }
 
-    h1 {
-        margin-bottom: 40px;
+    h1, h2 {
+        margin-bottom: 20px;
     }
 
+    /* Game Screens */
     .game-screen {
         display: none;
-    }
-
-    #number {
-        font-size: 80px;
-        font-weight: bold;
-        background-color: #fff;
-        padding: 40px 0;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #fff;
         border-radius: 15px;
-        margin-top: 45px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        position: relative;
     }
 
-    #generateButton {
-        position: absolute;
-        top: 315px;
-        margin: 0;
-        justify-self: anchor-center;
-        font-size: 55px;
-    }
-
-    button {
-        padding: 20px 40px;
-        font-family: Arial, sans-serif;
-        font-size: 30px;
-        border: none;
-        border-radius: 10px;
+    /* Hub Buttons */
+    #mainMenu button {
+        width: 250px;
+        margin: 10px auto;
+        font-size: 22px;
+        padding: 15px 0;
+        border-radius: 12px;
         background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s;
+        color: #fff;
+        transition: 0.3s;
     }
 
-    button:hover {
+    #mainMenu button:hover {
         background-color: #45a049;
     }
 
-    .sliders {
+    /* RNG Number Display */
+    #number {
+        font-size: 4vw;
+        min-height: 100px;
+        font-weight: bold;
         background-color: #fff;
-        display: inline-block;
-        padding: 20px 30px;
+        padding: 30px 0;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Generate Button */
+    #generateButton {
+        font-size: 1.8rem;
+        padding: 15px 30px;
+        margin: 20px 0;
+        border-radius: 12px;
+        background-color: #FFA500;
+        color: #fff;
+    }
+
+    #generateButton:hover {
+        background-color: #e69500;
+    }
+
+    /* Sliders */
+    .sliders {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background: #fefefe;
+        padding: 20px;
         border-radius: 15px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        text-align: left;
-        position: absolute;
-        top: 900px;
-        margin: 0;
+        width: 100%;
     }
 
     .sliders p {
-        margin: 15px 0 5px;
         font-weight: bold;
     }
 
     .sliders input[type="range"] {
         width: 100%;
+    }
+
+    /* Cash Register Buttons */
+    #game2 div.money-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    #game2 div.money-buttons button {
+        font-size: 1rem;
+        padding: 10px;
+        border-radius: 10px;
+        background: #4CAF50;
+        color: #fff;
+        transition: 0.3s;
+    }
+
+    #game2 div.money-buttons button:hover {
+        background: #45a049;
+    }
+
+    /* Action buttons */
+    #game2 div.actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin: 20px 0;
+    }
+
+    #game2 div.actions button {
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+    }
+
+    #game2 div.actions button.check {
+        background-color: #FFA500;
+    }
+
+    #game2 div.actions button.check:hover {
+        background-color: #e69500;
+    }
+
+    #game2 div.actions button.reset {
+        background-color: #FF6347;
+    }
+
+    #game2 div.actions button.reset:hover {
+        background-color: #e55b3c;
+    }
+
+    /* Back button */
+    .game-screen button.back {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        padding: 8px 15px;
+        font-size: 1rem;
+        border-radius: 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    .game-screen button.back:hover {
+        background-color: #555;
+    }
+
+    /* Target & Total */
+    #targetNumber {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2E8B57;
+        margin: 15px 0;
+    }
+
+    #currentTotal {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1E90FF;
+        margin: 15px 0;
+    }
+
+    #resultText {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    /* History Panel */
+    #historyPanel {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 20px;
+        width: 250px;
+        max-height: 300px;
+        overflow-y: auto;
+        background: #fff;
+        border: 2px solid #4CAF50;
+        border-radius: 10px;
+        padding: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    #historyPanel h3 {
+        margin: 0;
+        padding: 10px;
+        background: #4CAF50;
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    #historyList {
+        list-style: none;
+        padding: 10px;
+        margin: 0;
+        max-height: 240px;
+        overflow-y: auto;
+    }
+
+    #historyList li {
+        padding: 5px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #historyList li.correct::before {
+        content: "✔️";
+        margin-right: 5px;
+        color: green;
+    }
+
+    #historyList li.wrong::before {
+        content: "❌";
+        margin-right: 5px;
+        color: red;
+    }
+
+    /* History Button */
+    #historyButton {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 8px 15px;
+        border-radius: 10px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    #historyButton:hover {
+        background-color: #45a049;
+    }
+
+    /* Responsive text sizes */
+    @media (max-width: 600px) {
+        #number {
+            font-size: 8vw;
+        }
+
+        #targetNumber {
+            font-size: 2rem;
+        }
+
+        #currentTotal {
+            font-size: 1.5rem;
+        }
+
+        #game2 div.money-buttons button {
+            font-size: 0.9rem;
+            padding: 8px;
+        }
+
+        #game2 div.actions button {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
     }
 </style>
 </head>
