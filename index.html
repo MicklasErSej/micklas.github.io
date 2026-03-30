@@ -583,7 +583,6 @@ document.getElementById("startMicBtn").onclick = function() {
                 const spoken = event.results[i][0].transcript.toLowerCase().trim();
 
                 console.log("You said:", spoken);
-                console.log("RAW EVENT:", event.results[i][0].transcript);
                 
 
                 // 👇 IMPORTANT: only react if something is actually there
