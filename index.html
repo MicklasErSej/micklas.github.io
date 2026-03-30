@@ -574,7 +574,7 @@ document.getElementById("startMicBtn").onclick = function() {
     if (!recognition) {
         recognition = new webkitSpeechRecognition();
         recognition.lang = 'da-DK';
-        recognition.continuous = false;     // 👈 stops after each sentence
+        recognition.continuous = true;     // 👈 stops after each sentence
         recognition.interimResults = true;  // 👈 gives faster results
 
         recognition.onresult = function(event) {
