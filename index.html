@@ -162,6 +162,11 @@
         <button onclick="addValue(500)">500 kr</button>
     </div>
 
+    <!-- Score -->
+    <div id="scoreBoard" style="font-size:24px; margin:10px;">
+        Score: <span id="score">0</span> | 🔥 Streak: <span id="streak">0</span>
+    </div>
+
      <!-- History Buttom -->
     
     <button id="historyButton" onclick="toggleHistory()" 
@@ -325,6 +330,8 @@ function setLevel() {
     
 let target = 0;
 let total = 0;
+let score = 0;
+let streak = 0;
 
 // Start new round
 function startGame2() {
