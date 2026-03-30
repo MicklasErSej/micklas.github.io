@@ -564,6 +564,49 @@ function generateSayNumber() {
     document.getElementById("sayNumberDisplay").innerText = sayNumberTarget;
 }
 
+// Map Danish spoken numbers to digits
+function parseDanishNumber(text) {
+    text = text.toLowerCase().trim();
+
+    // Remove extra stuff like punctuation
+    text = text.replace(/[.,!?]/g, "");
+
+    const numbers = {
+        "nul":0,
+        "en":1,"et":1,
+        "to":2,
+        "tre":3,
+        "fire":4,
+        "fem":5,
+        "seks":6,
+        "syv":7,
+        "otte":8,
+        "ni":9,
+        "ti":10,
+        "elleve":11,
+        "tolv":12,
+        "tretten":13,
+        "fjorten":14,
+        "femten":15,
+        "seksten":16,
+        "sytten":17,
+        "atten":18,
+        "nitten":19,
+        "tyve":20
+    };
+
+    // 🔥 IMPORTANT: check EACH word (not whole sentence)
+    const words = text.split(" ");
+
+    for (let word of words) {
+        if (numbers[word] !== undefined) {
+            return numbers[word];
+        }
+    }
+
+    return NaN;
+}
+
 // Start/Stop microphone
 document.getElementById("startMicBtn").onclick = function() {
     if (!('webkitSpeechRecognition' in window)) {
