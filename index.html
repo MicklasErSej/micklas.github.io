@@ -579,15 +579,14 @@ document.getElementById("startMicBtn").onclick = function() {
 
         recognition.onresult = function(event) {
             for (let i = event.resultIndex; i < event.results.length; i++) {
-
                 const spoken = event.results[i][0].transcript.toLowerCase().trim();
-
-                console.log("You said:", spoken);
-                
-
-                // 👇 IMPORTANT: only react if something is actually there
-                if (spoken.length > 0) {
+        
+                // Only act on final results
+                if (event.results[i].isFinal) {
+                    console.log("You said (final):", spoken);
                     checkSayNumber(spoken);
+                } else {
+                    console.log("Interim:", spoken); // optional: just for debugging
                 }
             }
         };
