@@ -566,16 +566,45 @@ function generateSayNumber() {
 
 // Map Danish spoken numbers to digits
 function parseDanishNumber(text) {
-    text = text.trim().toLowerCase();
+    text = text.toLowerCase().trim();
 
-    // Very basic mapping (can expand later)
+    // Remove extra stuff like punctuation
+    text = text.replace(/[.,!?]/g, "");
+
     const numbers = {
-        "nul":0,"en":1,"et":1,"to":2,"tre":3,"fire":4,"fem":5,
-        "seks":6,"syv":7,"otte":8,"ni":9,"ti":10,
-        "elleve":11,"tolv":12,"tretten":13,"fjorten":14,"femten":15,
-        "seksten":16,"sytten":17,"atten":18,"nitten":19,"tyve":20
+        "nul":0,
+        "en":1,"et":1,
+        "to":2,
+        "tre":3,
+        "fire":4,
+        "fem":5,
+        "seks":6,
+        "syv":7,
+        "otte":8,
+        "ni":9,
+        "ti":10,
+        "elleve":11,
+        "tolv":12,
+        "tretten":13,
+        "fjorten":14,
+        "femten":15,
+        "seksten":16,
+        "sytten":17,
+        "atten":18,
+        "nitten":19,
+        "tyve":20
     };
-    return numbers[text] !== undefined ? numbers[text] : NaN;
+
+    // 🔥 IMPORTANT: check EACH word (not whole sentence)
+    const words = text.split(" ");
+
+    for (let word of words) {
+        if (numbers[word] !== undefined) {
+            return numbers[word];
+        }
+    }
+
+    return NaN;
 }
 
 // Start/Stop microphone
