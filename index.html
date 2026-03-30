@@ -564,49 +564,6 @@ function generateSayNumber() {
     document.getElementById("sayNumberDisplay").innerText = sayNumberTarget;
 }
 
-// Map Danish spoken numbers to digits
-function parseDanishNumber(text) {
-    text = text.toLowerCase().trim();
-
-    // Remove extra stuff like punctuation
-    text = text.replace(/[.,!?]/g, "");
-
-    const numbers = {
-        "nul":0,
-        "en":1,"et":1,
-        "to":2,
-        "tre":3,
-        "fire":4,
-        "fem":5,
-        "seks":6,
-        "syv":7,
-        "otte":8,
-        "ni":9,
-        "ti":10,
-        "elleve":11,
-        "tolv":12,
-        "tretten":13,
-        "fjorten":14,
-        "femten":15,
-        "seksten":16,
-        "sytten":17,
-        "atten":18,
-        "nitten":19,
-        "tyve":20
-    };
-
-    // 🔥 IMPORTANT: check EACH word (not whole sentence)
-    const words = text.split(" ");
-
-    for (let word of words) {
-        if (numbers[word] !== undefined) {
-            return numbers[word];
-        }
-    }
-
-    return NaN;
-}
-
 // Start/Stop microphone
 document.getElementById("startMicBtn").onclick = function() {
     if (!('webkitSpeechRecognition' in window)) {
@@ -657,11 +614,10 @@ function checkSayNumber(spoken) {
     const resultEl = document.getElementById("sayNumberResult");
     const displayEl = document.getElementById("sayNumberDisplay");
 
-    let num = parseFloat(spoken.replace(",", "."));
+    // Convert directly to number
+    const num = parseFloat(spoken.replace(",", "."));
 
-    if (isNaN(num)) {
-        num = parseDanishNumber(spoken);
-    }
+    console.log("Detected number:", num, "Target:", sayNumberTarget);
 
     if (!isNaN(num) && Math.abs(num - sayNumberTarget) < 0.01) {
         resultEl.innerText = "✅ Correct!";
@@ -670,30 +626,27 @@ function checkSayNumber(spoken) {
         sayScore++;
         sayNumberStreak++;
 
-        // Update session best
         if (sayNumberStreak > saySessionBest) {
             saySessionBest = sayNumberStreak;
         }
 
-        // Update all-time best
         if (sayNumberStreak > sayAllTimeBest) {
             sayAllTimeBest = sayNumberStreak;
             localStorage.setItem("sayBestStreak", sayAllTimeBest);
         }
 
-        // Update UI
         document.getElementById("sayScore").innerText = sayScore;
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
         document.getElementById("saySessionBest").innerText = saySessionBest;
         document.getElementById("sayAllTimeBest").innerText = sayAllTimeBest;
 
-        // Clear number
+        // Clear number briefly
         displayEl.innerText = "";
 
         setTimeout(() => {
             resultEl.innerText = "";
             generateSayNumber();
-        }, 1200);
+        }, 1000);
 
     } else {
         resultEl.innerText = "❌ Wrong! Prøv igen...";
@@ -706,7 +659,6 @@ function checkSayNumber(spoken) {
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
     }
 }
-
 // Start game when user clicks on it
 function initSayNumber() {
     startSayNumberGame();
