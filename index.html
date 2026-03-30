@@ -374,13 +374,23 @@ function checkAnswer() {
     const result = document.getElementById("resultText");
 
     if (Math.abs(total - target) < 0.01) {
-        result.innerText = "✅ Korrekt!";
-        result.style.color = "#2E8B57";  // ✅ green when correct
+        result.innerText = "✅ Correct!";
+        result.style.color = "green";
+
+        score++;      // +1 point
+        streak++;     // increase streak
 
         setTimeout(startGame2, 1000);
     } else {
-        result.innerText = "❌ Prøv Igen!";
-        result.style.color = "#FF3B30";    // ❌ red when wrong
+        result.innerText = "❌ Try again!";
+        result.style.color = "red";
+
+        streak = 0;   // reset streak
+    }
+
+    // Update UI
+        document.getElementById("score").innerText = score;
+        document.getElementById("streak").innerText = streak;
     }
 }
 function formatDKK(value) {
