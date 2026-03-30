@@ -588,8 +588,8 @@ document.getElementById("startMicBtn").onclick = function() {
     if (!recognition) {
         recognition = new webkitSpeechRecognition();
         recognition.lang = 'da-DK';
-        recognition.continuous = true;
-        recognition.interimResults = false;
+        recognition.continuous = false;     // 👈 stops after each sentence
+        recognition.interimResults = true;  // 👈 gives faster results
 
         recognition.onresult = function(event) {
             for (let i = event.resultIndex; i < event.results.length; i++) {
