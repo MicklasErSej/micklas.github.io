@@ -375,22 +375,16 @@ function checkAnswer() {
 
     if (Math.abs(total - target) < 0.01) {
         result.innerText = "✅ Correct!";
-        result.style.color = "green";
-
-        score++;      // +1 point
-        streak++;     // increase streak
+        result.style.color = "green";  // ✅ green when correct
 
         setTimeout(startGame2, 1000);
     } else {
         result.innerText = "❌ Try again!";
-        result.style.color = "red";
-
-        streak = 0;   // reset streak
+        result.style.color = "red";    // ❌ red when wrong
     }
-
-    // Update UI
-        document.getElementById("score").innerText = score;
-        document.getElementById("streak").innerText = streak;
+}
+function formatDKK(value) {
+    return value.toFixed(2).replace(".", ",") + " kr";
     }
 }
 function formatDKK(value) {
