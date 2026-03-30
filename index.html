@@ -590,6 +590,11 @@ document.getElementById("startMicBtn").onclick = function() {
         recognition.lang = 'da-DK';
         recognition.continuous = false;     // 👈 stops after each sentence
         recognition.interimResults = true;  // 👈 gives faster results
+        recognition.onend = function() {
+            if (listening) {
+                recognition.start(); // 👈 auto restart
+            }
+        };
 
         recognition.onresult = function(event) {
             for (let i = event.resultIndex; i < event.results.length; i++) {
