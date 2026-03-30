@@ -590,7 +590,6 @@ document.getElementById("startMicBtn").onclick = function() {
         recognition.lang = 'da-DK';
         recognition.continuous = false;     // 👈 stops after each sentence
         recognition.interimResults = true;  // 👈 gives faster results
-
         recognition.onresult = function(event) {
             for (let i = event.resultIndex; i < event.results.length; i++) {
                     const spoken = event.results[i][0].transcript;  // this is the recognized speech
