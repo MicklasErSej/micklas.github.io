@@ -370,11 +370,20 @@ function checkAnswer() {
         result.innerText = "✅ Correct!";
         result.style.color = "green";
 
+        score++;
+        streak++;
+
         setTimeout(startGame2, 1000);
     } else {
         result.innerText = "❌ Try again!";
         result.style.color = "red";
+
+        streak = 0;
     }
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("streak").innerText = streak;
+}
 }
 function formatDKK(value) {
     return value.toFixed(2).replace(".", ",") + " kr";
