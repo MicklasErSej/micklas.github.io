@@ -325,7 +325,11 @@ let target = 0;
 let total = 0;
 let score = 0;
 let streak = 0;
-let bestStreak = 0;
+
+// Load from browser (or 0 if nothing saved)
+let bestStreak = localStorage.getItem("bestStreak") 
+    ? parseInt(localStorage.getItem("bestStreak")) 
+    : 0;
 
 // Start new round
 function startGame2() {
@@ -377,6 +381,9 @@ function checkAnswer() {
         // Update best streak
         if (streak > bestStreak) {
             bestStreak = streak;
+
+            // Save to browser
+            localStorage.setItem("bestStreak", bestStreak);
         }
 
         setTimeout(startGame2, 1000);
@@ -426,6 +433,7 @@ function updateHistory(target, entered) {
 
 // Initialize display
 updateDisplay();
+document.getElementById("streak").innerText = bestStreak;
 </script>
 
 </body>
