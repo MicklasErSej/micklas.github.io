@@ -564,18 +564,6 @@ function generateSayNumber() {
     document.getElementById("sayNumberDisplay").innerText = sayNumberTarget;
 }
 
-// 🔥 IMPORTANT: check EACH word (not whole sentence)
-    const words = text.split(" ");
-
-    for (let word of words) {
-        if (numbers[word] !== undefined) {
-            return numbers[word];
-        }
-    }
-
-    return NaN;
-}
-
 // Start/Stop microphone
 document.getElementById("startMicBtn").onclick = function() {
     if (!('webkitSpeechRecognition' in window)) {
