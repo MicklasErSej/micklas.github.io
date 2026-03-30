@@ -373,17 +373,23 @@ function checkAnswer() {
         score++;
         streak++;
 
+        // Update best streak
+        if (streak > bestStreak) {
+            bestStreak = streak;
+        }
+
         setTimeout(startGame2, 1000);
     } else {
         result.innerText = "❌ Try again!";
         result.style.color = "red";
 
-        streak = 0;
+        score = 0;     // 🔴 reset score on fail
+        streak = 0;    // 🔴 reset streak
     }
 
     document.getElementById("score").innerText = score;
-    document.getElementById("streak").innerText = streak;
-    }
+    document.getElementById("streak").innerText = bestStreak;
+}
     
 function formatDKK(value) {
     return value.toFixed(2).replace(".", ",") + " kr";
