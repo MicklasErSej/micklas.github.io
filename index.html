@@ -578,6 +578,7 @@ document.getElementById("startMicBtn").onclick = function() {
 // Check if spoken number is correct
 function checkSayNumber(spoken) {
     const resultEl = document.getElementById("sayNumberResult");
+    const displayEl = document.getElementById("sayNumberDisplay");
 
     let num = parseFloat(spoken.replace(",", "."));
 
