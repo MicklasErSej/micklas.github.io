@@ -381,6 +381,13 @@ function checkAnswer() {
     } else {
         result.innerText = "❌ Prøv Igen!";
         result.style.color = "#FF3B30";    // ❌ red when wrong
+
+        streak = 0;   // reset streak
+    }
+
+    // Update UI
+    document.getElementById("score").innerText = score;
+    document.getElementById("streak").innerText = streak;
     }
 }
 function formatDKK(value) {
