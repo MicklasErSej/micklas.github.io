@@ -594,6 +594,9 @@ function checkSayNumber(spoken) {
         sayNumberStreak++;
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
 
+        // 👇 CLEAR NUMBER (this is the new part)
+        displayEl.innerText = "";
+
         // ⏳ Wait before next number
         setTimeout(() => {
             resultEl.innerText = "";
