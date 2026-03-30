@@ -579,25 +579,31 @@ document.getElementById("startMicBtn").onclick = function() {
 function checkSayNumber(spoken) {
     const resultEl = document.getElementById("sayNumberResult");
 
-    // Try to parse as number first
     let num = parseFloat(spoken.replace(",", "."));
 
-    // If it’s not a number, try the Danish mapping
     if (isNaN(num)) {
         num = parseDanishNumber(spoken);
     }
 
-    console.log("Recognized number:", num, "Target:", sayNumberTarget);
+    console.log("Recognized:", num, "Target:", sayNumberTarget);
 
     if (!isNaN(num) && Math.abs(num - sayNumberTarget) < 0.01) {
         resultEl.innerText = "✅ Correct!";
         resultEl.style.color = "green";
+
         sayNumberStreak++;
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
-        generateSayNumber(); // new number
+
+        // ⏳ Wait before next number
+        setTimeout(() => {
+            resultEl.innerText = "";
+            generateSayNumber();
+        }, 1200);
+
     } else {
         resultEl.innerText = "❌ Wrong! Prøv igen...";
         resultEl.style.color = "red";
+
         sayNumberStreak = 0;
         document.getElementById("sayNumberStreak").innerText = sayNumberStreak;
     }
