@@ -579,15 +579,14 @@ document.getElementById("startMicBtn").onclick = function() {
 
         recognition.onresult = function(event) {
             for (let i = event.resultIndex; i < event.results.length; i++) {
-                const spoken = event.results[i][0].transcript.trim();
+                const spoken = event.results[i][0].transcript.toLowerCase().trim();
         
+                // Only act on final results
                 if (event.results[i].isFinal) {
                     console.log("You said (final):", spoken);
-                    checkSayNumber(spoken); // check correctness only on final
+                    checkSayNumber(spoken);
                 } else {
-                    console.log("Interim:", spoken);
-                    // Optional: show live number in the box
-                    document.getElementById("sayNumberDisplay").innerText = spoken;
+                    console.log("Interim:", spoken); // optional: just for debugging
                 }
             }
         };
