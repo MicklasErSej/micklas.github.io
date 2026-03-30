@@ -361,14 +361,18 @@ function resetTotal() {
 
 // Check answer
 function checkAnswer() {
-    // Store attempt in history
     updateHistory(target, total);
 
+    const result = document.getElementById("resultText");
+
     if (Math.abs(total - target) < 0.01) {
-        document.getElementById("resultText").innerText = "✅ Correct!";
-        setTimeout(startGame2, 1000); // new round after 1 sec
+        result.innerText = "✅ Correct!";
+        result.style.color = "green";  // ✅ green when correct
+
+        setTimeout(startGame2, 1000);
     } else {
-        document.getElementById("resultText").innerText = "❌ Try again!";
+        result.innerText = "❌ Try again!";
+        result.style.color = "red";    // ❌ red when wrong
     }
 }
 function formatDKK(value) {
