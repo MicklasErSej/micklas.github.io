@@ -702,6 +702,13 @@ let wordList = [
     "som","på","de","med","han","af","for","ikke","der","var"
 ]; // 👈 you can expand to all 120 later
 
+let sentenceTemplates = [
+    "jeg siger ",
+    "du skal sige ",
+    "ordet er ",
+    "sig ordet "
+];
+
 let sayWordTarget = "";
 let sayWordStreak = 0;
 let wordRecognition;
@@ -719,9 +726,9 @@ function startSayWordGame() {
 function generateWord() {
     sayWordTarget = wordList[Math.floor(Math.random() * wordList.length)];
 
-    const sentence = "jeg siger " + sayWordTarget;
+    const template = sentenceTemplates[Math.floor(Math.random() * sentenceTemplates.length)];
 
-    document.getElementById("sayWordDisplay").innerText = sentence;
+    document.getElementById("sayWordDisplay").innerText = template + sayWordTarget;
 }
 
 // Mic button
