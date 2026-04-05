@@ -695,6 +695,116 @@ function checkSayNumber(spoken) {
     }
 }
 
+// Say the Word Game
+let wordList = [
+    "og","i","jeg","det","at","en","du","den","til","er",
+    "som","på","de","med","han","af","for","ikke","der","var"
+]; // 👈 you can expand to all 120 later
+
+let sayWordTarget = "";
+let sayWordStreak = 0;
+let wordRecognition;
+let wordListening = false;
+
+// Start game
+function startSayWordGame() {
+    sayWordStreak = 0;
+    document.getElementById("sayWordStreak").innerText = sayWordStreak;
+    generateWord();
+    document.getElementById("sayWordResult").innerText = "";
+}
+
+// Generate random word
+function generateWord() {
+    sayWordTarget = wordList[Math.floor(Math.random() * wordList.length)];
+    document.getElementById("sayWordDisplay").innerText = sayWordTarget;
+}
+
+// Mic button
+document.getElementById("startWordMicBtn").onclick = function() {
+
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("Din browser understøtter ikke tale 😢");
+        return;
+    }
+
+    if (!wordRecognition) {
+        wordRecognition = new webkitSpeechRecognition();
+        wordRecognition.lang = 'da-DK';
+        wordRecognition.continuous = true;
+        wordRecognition.interimResults = false;
+
+        wordRecognition.onresult = function(event) {
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    const spoken = event.results[i][0].transcript.toLowerCase().trim();
+                    console.log("You said:", spoken);
+                    checkWord(spoken);
+                    break;
+                }
+            }
+        };
+
+        wordRecognition.onend = function() {
+            if (wordListening) wordRecognition.start();
+        };
+    }
+
+    if (!wordListening) {
+        wordRecognition.start();
+        wordListening = true;
+        this.innerText = "Stop Listening";
+    } else {
+        wordRecognition.stop();
+        wordListening = false;
+        this.innerText = "Start Listening";
+    }
+};
+
+// Check word
+function checkWord(spoken) {
+    const resultEl = document.getElementById("sayWordResult");
+
+    if (spoken === sayWordTarget) {
+        resultEl.innerText = "✅ Correct!";
+        resultEl.style.color = "green";
+
+        sayWordStreak++;
+        document.getElementById("sayWordStreak").innerText = sayWordStreak;
+
+        document.getElementById("sayWordDisplay").innerText = "";
+
+        setTimeout(() => {
+            resultEl.innerText = "";
+            generateWord();
+        }, 700);
+
+    } else {
+        resultEl.innerText = "❌ Forkert!";
+        resultEl.style.color = "red";
+
+        sayWordStreak = 0;
+        document.getElementById("sayWordStreak").innerText = sayWordStreak;
+    }
+}
+
+// Hook into menu
+function showGame(gameId){
+    const menu = document.getElementById('menuWrapper');
+    menu.style.opacity = 0;
+
+    setTimeout(() => {
+        menu.style.display = 'none';
+        document.querySelectorAll('.game-screen').forEach(div => div.style.display = 'none');
+        document.getElementById(gameId).style.display = 'block';
+
+        if (gameId === "game2") startGame2();
+        if (gameId === "sayNumber") initSayNumber();
+        if (gameId === "sayWord") startSayWordGame(); // 👈 NEW
+
+    }, 500);
+}
+
 // Start game
 function initSayNumber() {
     startSayNumberGame();
