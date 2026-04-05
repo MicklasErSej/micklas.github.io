@@ -290,6 +290,37 @@
     ">Tilbage Til Menuen</button>
 </div>
 
+<!-- Game 4: Say the Word -->
+<div id="sayWord" class="game-screen" style="position: relative; padding:20px;">
+    <h2>Sig Ordet 🗣️</h2>
+
+    <!-- Word display -->
+    <div id="sayWordDisplay" style="
+        font-size:80px; font-weight:bold; color:#8A2BE2; 
+        background:#fff; padding:40px; border-radius:15px; margin:30px auto; 
+        max-width:300px; height:120px;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    ">ord</div>
+
+    <!-- Mic button -->
+    <button id="startWordMicBtn" style="
+        padding:15px 30px; font-size:24px; background-color:#1E90FF; color:white;
+        border:none; border-radius:10px; cursor:pointer;
+    ">Start Listening</button>
+
+    <!-- Result -->
+    <p id="sayWordResult" style="font-size:30px; font-weight:bold; margin-top:20px;"></p>
+
+    <!-- Streak -->
+    <p style="font-size:24px;">🔥 Streak: <span id="sayWordStreak">0</span></p>
+
+    <!-- Back -->
+    <button onclick="backToMenu()" style="
+        position:absolute; top:10px; right:10px; padding:10px 17px;
+    ">Tilbage</button>
+</div>
+
 <script>
 function showGame(gameId){
     const menu = document.getElementById('menuWrapper');
