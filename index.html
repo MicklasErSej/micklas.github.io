@@ -718,7 +718,10 @@ function startSayWordGame() {
 // Generate random word
 function generateWord() {
     sayWordTarget = wordList[Math.floor(Math.random() * wordList.length)];
-    document.getElementById("sayWordDisplay").innerText = sayWordTarget;
+
+    const sentence = "jeg siger " + sayWordTarget;
+
+    document.getElementById("sayWordDisplay").innerText = sentence;
 }
 
 // Mic button
@@ -766,9 +769,8 @@ document.getElementById("startWordMicBtn").onclick = function() {
 function cleanWord(word) {
     return word
         .toLowerCase()
-        .replace(/[.,!?]/g, "")   // remove punctuation
-        .replace(/\s+/g, "")     // remove spaces
-        .replace("é", "e");      // normalize accents
+        .replace(/[.,!?]/g, "")
+        .trim();
 }
 
 function checkWord(spoken) {
@@ -777,9 +779,11 @@ function checkWord(spoken) {
     const cleanSpoken = cleanWord(spoken);
     const cleanTarget = cleanWord(sayWordTarget);
 
-    console.log("Spoken:", cleanSpoken, "Target:", cleanTarget);
+    console.log("Spoken:", cleanSpoken);
+    console.log("Looking for:", cleanTarget);
 
-    if (cleanSpoken === cleanTarget) {
+    // 👇 KEY CHANGE: use includes instead of ===
+    if (cleanSpoken.includes(cleanTarget)) {
         resultEl.innerText = "✅ Correct!";
         resultEl.style.color = "green";
 
