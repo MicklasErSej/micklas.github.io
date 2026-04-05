@@ -763,10 +763,23 @@ document.getElementById("startWordMicBtn").onclick = function() {
 };
 
 // Check word
+function cleanWord(word) {
+    return word
+        .toLowerCase()
+        .replace(/[.,!?]/g, "")   // remove punctuation
+        .replace(/\s+/g, "")     // remove spaces
+        .replace("é", "e");      // normalize accents
+}
+
 function checkWord(spoken) {
     const resultEl = document.getElementById("sayWordResult");
 
-    if (spoken === sayWordTarget) {
+    const cleanSpoken = cleanWord(spoken);
+    const cleanTarget = cleanWord(sayWordTarget);
+
+    console.log("Spoken:", cleanSpoken, "Target:", cleanTarget);
+
+    if (cleanSpoken === cleanTarget) {
         resultEl.innerText = "✅ Correct!";
         resultEl.style.color = "green";
 
